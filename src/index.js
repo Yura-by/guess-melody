@@ -4,8 +4,11 @@ import {App} from './components/app/app.jsx';
 
 const init = () => {
   ReactDOM.render(
-    <App/>,
-    document.getElementById(`root`)
+      <App
+        errorCount={7}
+        gameTime={`4`}
+      />,
+      document.getElementById(`root`)
   );
 };
 
