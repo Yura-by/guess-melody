@@ -6,7 +6,7 @@ const init = () => {
   ReactDOM.render(
       <App
         errorCount={7}
-        gameTime={`4`}
+        gameTime={4}
       />,
       document.getElementById(`root`)
   );
