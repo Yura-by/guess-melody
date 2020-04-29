@@ -1,12 +1,7 @@
-import React from 'react';
-import Enzyme, {mount} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import App from './app';
-
-const mock = {
+const gameData = {
   settings: {
-    gameTime: 0,
-    errorCount: 0
+    gameTime: 5,
+    errorCount: 3
   },
   questions: [
     {
@@ -27,7 +22,7 @@ const mock = {
         },
         {
           src: `https://upload.wikimedia.org/wikipedia/commons/6/64/Ugandan_national_anthem%2C_performed_by_the_U.S._Navy_Band.ogg`,
-          genre: `rock`,
+          genre: `pop`,
         },
       ],
     }, {
@@ -54,19 +49,4 @@ const mock = {
   ]
 };
 
-Enzyme.configure({adapter: new Adapter()});
-
-it(`App click on welcome button`, () => {
-
-  const app = mount(<App
-    gameData={mock}
-  />);
-
-  expect(app.state(`question`)).toEqual(-1);
-
-  const startButton = app.find(`.welcome__button`);
-  startButton.simulate(`click`);
-  app.update();
-
-  expect(app.state(`question`)).toEqual(0);
-});
+export default gameData;

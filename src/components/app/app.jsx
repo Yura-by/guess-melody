@@ -1,30 +1,86 @@
 import React from 'react';
-
 import PropTypes from 'prop-types';
+import WelcomeScreen from '../welcome-screen/welcome-screen.jsx';
+import {PureComponent} from 'react';
+import GameGenre from '../game-genre/game-genre.jsx';
+import GameArtist from '../game-artist/game-artist.jsx';
 
-const App = (props) => {
-  const {gameTime, errorCount, onButtonClick} = props;
-  return (
-    <section className="welcome">
-      <div className="welcome__logo">
-        <img src="img/melody-logo.png" alt="Угадай мелодию" width="186" height="83"/>
-      </div>
-      <button className="welcome__button" onClick={onButtonClick}><span className="visually-hidden">Начать игру</span></button>
-      <h2 className="welcome__rules-title">Правила игры</h2>
-      <p className="welcome__text">Правила просты:</p>
-      <ul className="welcome__rules-list">
-        <li>За {gameTime} минут нужно ответить на все вопросы.</li>
-        <li>Можно допустить {errorCount} ошибки.</li>
-      </ul>
-      <p className="welcome__text">Удачи!</p>
-    </section>
-  );
-};
+export default class App extends PureComponent {
+
+  static getScreen(question, props, onUserAnswer) {
+    if (question === -1) {
+      const {settings: {gameTime: gameTime}, settings: {errorCount: errorCount}} = props.gameData;
+
+      return (
+        <WelcomeScreen
+          time={gameTime}
+          errorCount={errorCount}
+          onStartButtonClick={onUserAnswer}
+        />
+      );
+    }
+
+    const {questions} = props.gameData;
+    const currentQuestion = questions[question];
+
+    switch (currentQuestion.type) {
+      case `genre`:
+        return (
+          <GameGenre
+            question={currentQuestion}
+            onAnswer={onUserAnswer}
+            questionNumber={question}
+          />
+        );
+
+      case `artist`:
+        return (
+          <GameArtist
+            question={currentQuestion}
+            onAnswer={onUserAnswer}
+            questionNumber={question}s
+          />
+        );
+    }
+
+    return null;
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      question: -1
+    };
+
+    this.clickScreenHandler = this.clickScreenHandler.bind(this);
+  }
+
+  clickScreenHandler() {
+    const {questions} = this.props.gameData;
+
+    this.setState(
+        (prevState) => {
+          const nextIndex = prevState.question + 1;
+          const isEnd = nextIndex >= questions.length;
+          return Object.assign({}, prevState, {
+            question: !isEnd ? nextIndex : -1
+          });
+        }
+    );
+  }
+
+  render() {
+    const {question} = this.state;
+    return App.getScreen(question, this.props, this.clickScreenHandler);
+  }
+}
 
 App.propTypes = {
-  gameTime: PropTypes.number.isRequired,
-  errorCount: PropTypes.number.isRequired,
-  onButtonClick: PropTypes.func.isRequired
+  gameData: PropTypes.shape({
+    settings: PropTypes.shape({
+      gameTime: PropTypes.number.isRequired,
+      errorCount: PropTypes.number.isRequired
+    }).isRequired,
+    questions: PropTypes.arrayOf(PropTypes.object).isRequired
+  })
 };
-
-export {App};
