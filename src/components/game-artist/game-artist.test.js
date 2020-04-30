@@ -6,19 +6,19 @@ const mock = {
   type: `artist`,
   song: {
     artist: `Mikle Jackson`,
-    src: `https://upload.wikimedia.org/wikipedia/commons/6/64/Ugandan_national_anthem%2C_performed_by_the_U.S._Navy_Band.ogg`,
+    src: `path`,
   },
   answers: [
     {
-      picture: `https://via.placeholder.com/134x134`,
+      picture: `path`,
       artist: `Mikle Jackson`,
     },
     {
-      picture: `https://via.placeholder.com/134x134`,
+      picture: `path`,
       artist: `Selena Gomez`,
     },
     {
-      picture: `https://via.placeholder.com/134x134`,
+      picture: `path`,
       artist: `50 cent`,
     },
   ],

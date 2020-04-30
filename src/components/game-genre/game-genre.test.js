@@ -7,19 +7,19 @@ const mock = {
   genre: `rock`,
   answers: [
     {
-      src: `https://upload.wikimedia.org/wikipedia/commons/6/64/Ugandan_national_anthem%2C_performed_by_the_U.S._Navy_Band.ogg`,
+      src: `1`,
       genre: `rock`,
     },
     {
-      src: `https://upload.wikimedia.org/wikipedia/commons/6/64/Ugandan_national_anthem%2C_performed_by_the_U.S._Navy_Band.ogg`,
+      src: `2`,
       genre: `blues`,
     },
     {
-      src: `https://upload.wikimedia.org/wikipedia/commons/6/64/Ugandan_national_anthem%2C_performed_by_the_U.S._Navy_Band.ogg`,
+      src: `3`,
       genre: `jazz`,
     },
     {
-      src: `https://upload.wikimedia.org/wikipedia/commons/6/64/Ugandan_national_anthem%2C_performed_by_the_U.S._Navy_Band.ogg`,
+      src: `4`,
       genre: `rock`,
     },
   ],

@@ -93,7 +93,7 @@ exports[`GameGenre snapshot test 1`] = `
           className="track__status"
         >
           <audio
-            src="https://upload.wikimedia.org/wikipedia/commons/6/64/Ugandan_national_anthem%2C_performed_by_the_U.S._Navy_Band.ogg"
+            src="1"
           />
         </div>
         <div
@@ -126,7 +126,7 @@ exports[`GameGenre snapshot test 1`] = `
           className="track__status"
         >
           <audio
-            src="https://upload.wikimedia.org/wikipedia/commons/6/64/Ugandan_national_anthem%2C_performed_by_the_U.S._Navy_Band.ogg"
+            src="2"
           />
         </div>
         <div
@@ -159,7 +159,7 @@ exports[`GameGenre snapshot test 1`] = `
           className="track__status"
         >
           <audio
-            src="https://upload.wikimedia.org/wikipedia/commons/6/64/Ugandan_national_anthem%2C_performed_by_the_U.S._Navy_Band.ogg"
+            src="3"
           />
         </div>
         <div
@@ -192,7 +192,7 @@ exports[`GameGenre snapshot test 1`] = `
           className="track__status"
         >
           <audio
-            src="https://upload.wikimedia.org/wikipedia/commons/6/64/Ugandan_national_anthem%2C_performed_by_the_U.S._Navy_Band.ogg"
+            src="4"
           />
         </div>
         <div

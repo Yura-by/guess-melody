@@ -9,7 +9,7 @@ const mock = {
   type: `artist`,
   song: {
     artist: `Mikle Jackson`,
-    src: `https://upload.wikimedia.org/wikipedia/commons/6/64/Ugandan_national_anthem%2C_performed_by_the_U.S._Navy_Band.ogg`,
+    src: `path`,
   },
   answers: [
     {

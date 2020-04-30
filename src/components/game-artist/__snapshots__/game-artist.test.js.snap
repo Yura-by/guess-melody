@@ -114,7 +114,7 @@ exports[`GameArtist snaphot test 1`] = `
           <img
             alt="Mikle Jackson"
             className="artist__picture"
-            src="https://via.placeholder.com/134x134"
+            src="path"
           />
           Mikle Jackson
         </label>
@@ -136,7 +136,7 @@ exports[`GameArtist snaphot test 1`] = `
           <img
             alt="Selena Gomez"
             className="artist__picture"
-            src="https://via.placeholder.com/134x134"
+            src="path"
           />
           Selena Gomez
         </label>
@@ -158,7 +158,7 @@ exports[`GameArtist snaphot test 1`] = `
           <img
             alt="50 cent"
             className="artist__picture"
-            src="https://via.placeholder.com/134x134"
+            src="path"
           />
           50 cent
         </label>

@@ -107,9 +107,12 @@ export default class GameGenre extends PureComponent {
 
 GameGenre.propTypes = {
   question: PropTypes.shape({
-    type: PropTypes.oneOf([`genre`]),
-    genre: PropTypes.sting,
-    answers: PropTypes.arrayOf(PropTypes.object)
+    type: PropTypes.oneOf([`genre`]).isRequired,
+    genre: PropTypes.string.isRequired,
+    answers: PropTypes.arrayOf(PropTypes.shape({
+      src: PropTypes.string.isRequired,
+      genre: PropTypes.string.isRequired
+    }))
   }).isRequired,
   onAnswer: PropTypes.func.isRequired,
   questionNumber: PropTypes.number.isRequired
