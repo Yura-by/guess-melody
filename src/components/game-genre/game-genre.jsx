@@ -39,7 +39,7 @@ export default class GameGenre extends PureComponent {
   }
 
   render() {
-    const {question, questionNumber} = this.props;
+    const {question} = this.props;
     return (
       <section className="game game--genre">
         <header className="game__header">
@@ -74,7 +74,7 @@ export default class GameGenre extends PureComponent {
 
             {question.answers.map((answer, index) => {
               return (
-                <div className="track" key={`${questionNumber}-${index}`}>
+                <div className="track" key={index}>
                   <button className="track__button track__button--play" type="button"></button>
                   <div className="track__status">
                     <audio src={answer.src}></audio>
@@ -115,5 +115,4 @@ GameGenre.propTypes = {
     }))
   }).isRequired,
   onAnswer: PropTypes.func.isRequired,
-  questionNumber: PropTypes.number.isRequired
 };

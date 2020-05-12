@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const GameArtist = (props) => {
-  const {question, onAnswer, questionNumber} = props;
+  const {question, onAnswer} = props;
   return (
     <section className="game game--artist">
       <header className="game__header">
@@ -50,7 +50,7 @@ const GameArtist = (props) => {
 
           {question.answers.map((answer, index) => {
             return (
-              <div className="artist" key={`${questionNumber}-${index}`}>
+              <div className="artist" key={index}>
                 <input
                   className="artist__input visually-hidden"
                   type="radio"
@@ -84,7 +84,6 @@ GameArtist.propTypes = {
     })).isRequired
   }),
   onAnswer: PropTypes.func.isRequired,
-  questionNumber: PropTypes.number.isRequired
 };
 
 export default GameArtist;

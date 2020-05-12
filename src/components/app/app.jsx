@@ -1,7 +1,6 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import WelcomeScreen from '../welcome-screen/welcome-screen.jsx';
-import {PureComponent} from 'react';
 import GameGenre from '../game-genre/game-genre.jsx';
 import GameArtist from '../game-artist/game-artist.jsx';
 
@@ -29,7 +28,6 @@ export default class App extends PureComponent {
           <GameGenre
             question={currentQuestion}
             onAnswer={onUserAnswer}
-            questionNumber={question}
           />
         );
 
@@ -38,7 +36,6 @@ export default class App extends PureComponent {
           <GameArtist
             question={currentQuestion}
             onAnswer={onUserAnswer}
-            questionNumber={question}s
           />
         );
     }
