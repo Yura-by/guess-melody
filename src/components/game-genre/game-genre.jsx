@@ -7,7 +7,8 @@ export default class GameGenre extends PureComponent {
     super(props);
 
     this.state = {
-      userAnswers: []
+      userAnswers: [],
+      activePlayer: -1,
     };
 
     this._answerClickHandler = this._answerClickHandler.bind(this);
@@ -41,6 +42,7 @@ export default class GameGenre extends PureComponent {
 
   render() {
     const {question} = this.props;
+    const {genre, answers} = question;
     return (
       <section className="game game--genre">
         <header className="game__header">
@@ -67,19 +69,27 @@ export default class GameGenre extends PureComponent {
         </header>
 
         <section className="game__screen">
-          <h2 className="game__title">Выберите {question.genre} треки</h2>
+          <h2 className="game__title">Выберите {genre} треки</h2>
           <form
             className="game__tracks"
             onSubmit={this._submitHandler}
           >
 
-            {question.answers.map((answer, index) => {
+            {answers.map((answer, index) => {
               const {src, id} = answer;
               return (
                 <div className="track" key={id}>
                   {/* <button className="track__button track__button--play" type="button"></button> */}
                   <AudioPlayer
                     src={src}
+                    isPlaying={index === this.state.activePlayer}
+                    onPlayButtonClick={() => {
+                      this.setState(({activePlayer}) => {
+                        return {
+                          activePlayer: activePlayer === index ? -1 : index
+                        };
+                      });
+                    }}
                   />
                   <div className="track__status">
                     {/* <audio src={answer.src}></audio> */}
