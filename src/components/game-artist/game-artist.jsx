@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import AudioPlayer from '../audio-player/audio-player.jsx';
 
-const GameArtist = (props) => {
-  const {question, onAnswer} = props;
+const GameArtist = ({question, onAnswer}) => {
+  const {answers, song} = question;
   return (
     <section className="game game--artist">
       <header className="game__header">
@@ -32,7 +33,10 @@ const GameArtist = (props) => {
         <h2 className="game__title">Кто исполняет эту песню?</h2>
         <div className="game__track">
           <div className="track">
-            <button className="track__button track__button--play" type="button"></button>
+            {/* <button className="track__button track__button--play" type="button"></button> */}
+            <AudioPlayer
+              src={song.src}
+            />
             <div className="track__status">
               <audio></audio>
             </div>
@@ -42,15 +46,15 @@ const GameArtist = (props) => {
         <form
           className="game__artist"
           onChange={(evt) => {
-            const {answers} = question;
             const answerIndex = evt.target.value.slice(7);
             onAnswer(question, answers[answerIndex]);
           }}
         >
 
           {question.answers.map((answer, index) => {
+            const {picture, artist, id} = answer;
             return (
-              <div className="artist" key={index}>
+              <div className="artist" key={id}>
                 <input
                   className="artist__input visually-hidden"
                   type="radio"
@@ -59,8 +63,8 @@ const GameArtist = (props) => {
                   id={`artist-${index}`}
                 />
                 <label className="artist__name" htmlFor={`artist-${index}`}>
-                  <img className="artist__picture" src={answer.picture} alt={answer.artist} />
-                  {answer.artist}
+                  <img className="artist__picture" src={picture} alt={artist} />
+                  {artist}
                 </label>
               </div>
             );
