@@ -46,7 +46,6 @@ export default class GameArtist extends PureComponent {
           <h2 className="game__title">Кто исполняет эту песню?</h2>
           <div className="game__track">
             <div className="track">
-              {/* <button className="track__button track__button--play" type="button"></button> */}
               <AudioPlayer
                 src={song.src}
                 isPlaying={isPlaying}
@@ -58,9 +57,6 @@ export default class GameArtist extends PureComponent {
                   });
                 }}
               />
-              <div className="track__status">
-                <audio></audio>
-              </div>
             </div>
           </div>
 

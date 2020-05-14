@@ -79,7 +79,6 @@ export default class GameGenre extends PureComponent {
               const {src, id} = answer;
               return (
                 <div className="track" key={id}>
-                  {/* <button className="track__button track__button--play" type="button"></button> */}
                   <AudioPlayer
                     src={src}
                     isPlaying={index === this.state.activePlayer}
@@ -91,9 +90,6 @@ export default class GameGenre extends PureComponent {
                       });
                     }}
                   />
-                  <div className="track__status">
-                    {/* <audio src={answer.src}></audio> */}
-                  </div>
                   <div className="game__answer">
                     <input
                       className="game__input visually-hidden"
