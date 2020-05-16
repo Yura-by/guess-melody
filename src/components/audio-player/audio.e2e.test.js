@@ -16,8 +16,13 @@ it(`AudioPlayer toggle state with click button`, () => {
     onPlayButtonClick={onButtonClick}
   />);
 
-  expect(tree.state(`isPlaying`)).toEqual(false);
-  tree.setState({isLoading: false});
+  expect(tree.state(`isLoading`)).toEqual(true);
+
+  const audioElement = tree.find(`audio`);
+  audioElement.getDOMNode().dispatchEvent(new global.window.Event(`canplaythrough`));
+  expect(tree.state(`isLoading`)).toEqual(false);
+
+  tree.update();
 
   const buttonElement = tree.find(`.track__button`);
   buttonElement.simulate(`click`, {preventDefault() {}});
@@ -28,6 +33,3 @@ it(`AudioPlayer toggle state with click button`, () => {
   expect(onButtonClick).toHaveBeenCalledTimes(2);
   expect(tree.state(`isPlaying`)).toEqual(false);
 });
-
-// const audioElement = tree.find(`audio`);
-// audioElement.getDOMNode().dispatchEvent(new global.window.Event(`loading`));
