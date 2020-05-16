@@ -10,14 +10,17 @@ const mock = {
   },
   answers: [
     {
+      id: 1,
       picture: `path`,
       artist: `Mikle Jackson`,
     },
     {
+      id: 2,
       picture: `path`,
       artist: `Selena Gomez`,
     },
     {
+      id: 3,
       picture: `path`,
       artist: `50 cent`,
     },
@@ -30,7 +33,12 @@ it(`GameArtist snaphot test`, () => {
       question={mock}
       onAnswer={() => {}}
       questionNumber={0}
-    />)
+    />,
+    {
+      createNodeMock: () => {
+        return {};
+      }
+    })
     .toJSON();
 
   expect(gameArtistTree).toMatchSnapshot();

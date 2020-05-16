@@ -101,6 +101,7 @@ GameArtist.propTypes = {
       src: PropTypes.string.isRequires,
     }).isRequired,
     answers: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number.isRequired,
       picture: PropTypes.string.isRequired,
       artist: PropTypes.string.isRequired
     })).isRequired

@@ -13,6 +13,7 @@ const mock = {
       type: `genre`,
       genre: `rock`,
       answers: [{
+        id: 1,
         src: `path`,
         genre: `rock`,
       }]
@@ -25,6 +26,7 @@ const mock = {
       },
       answers: [
         {
+          id: 2,
           picture: `path`,
           artist: `name`,
         }

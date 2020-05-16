@@ -87,14 +87,14 @@ exports[`GameGenre snapshot test 1`] = `
       >
         <button
           className="track__button track__button--play"
+          disabled={true}
+          onClick={[Function]}
           type="button"
         />
         <div
           className="track__status"
         >
-          <audio
-            src="1"
-          />
+          <audio />
         </div>
         <div
           className="game__answer"
@@ -120,14 +120,14 @@ exports[`GameGenre snapshot test 1`] = `
       >
         <button
           className="track__button track__button--play"
+          disabled={true}
+          onClick={[Function]}
           type="button"
         />
         <div
           className="track__status"
         >
-          <audio
-            src="2"
-          />
+          <audio />
         </div>
         <div
           className="game__answer"
@@ -153,14 +153,14 @@ exports[`GameGenre snapshot test 1`] = `
       >
         <button
           className="track__button track__button--play"
+          disabled={true}
+          onClick={[Function]}
           type="button"
         />
         <div
           className="track__status"
         >
-          <audio
-            src="3"
-          />
+          <audio />
         </div>
         <div
           className="game__answer"
@@ -186,14 +186,14 @@ exports[`GameGenre snapshot test 1`] = `
       >
         <button
           className="track__button track__button--play"
+          disabled={true}
+          onClick={[Function]}
           type="button"
         />
         <div
           className="track__status"
         >
-          <audio
-            src="4"
-          />
+          <audio />
         </div>
         <div
           className="game__answer"

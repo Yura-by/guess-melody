@@ -121,6 +121,7 @@ GameGenre.propTypes = {
     type: PropTypes.oneOf([`genre`]).isRequired,
     genre: PropTypes.string.isRequired,
     answers: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number.isRequired,
       src: PropTypes.string.isRequired,
       genre: PropTypes.string.isRequired
     }))

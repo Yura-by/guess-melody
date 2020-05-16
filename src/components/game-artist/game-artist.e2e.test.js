@@ -13,14 +13,17 @@ const mock = {
   },
   answers: [
     {
+      id: 1,
       picture: `https://via.placeholder.com/134x134`,
       artist: `Mikle Jackson`,
     },
     {
+      id: 2,
       picture: `https://via.placeholder.com/134x134`,
       artist: `Selena Gomez`,
     },
     {
+      id: 3,
       picture: `https://via.placeholder.com/134x134`,
       artist: `50 cent`,
     },
