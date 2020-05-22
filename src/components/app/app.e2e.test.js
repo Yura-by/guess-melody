@@ -43,11 +43,11 @@ it(`App click on welcome button`, () => {
     gameData={mock}
   />);
 
-  expect(app.state(`question`)).toEqual(-1);
+  expect(app.state(`step`)).toEqual(-1);
 
   const startButton = app.find(`.welcome__button`);
   startButton.simulate(`click`);
   app.update();
 
-  expect(app.state(`question`)).toEqual(0);
+  expect(app.state(`step`)).toEqual(0);
 });
