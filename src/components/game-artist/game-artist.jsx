@@ -38,13 +38,9 @@ export default class GameArtist extends PureComponent {
 
         <form
           className="game__artist"
-          onChange={(evt) => {
-            const answerIndex = evt.target.value.slice(7);
-            onAnswer(question, answers[answerIndex]);
-          }}
         >
 
-          {question.answers.map((answer, index) => {
+          {answers.map((answer, index) => {
             const {picture, artist, id} = answer;
             return (
               <div className="artist" key={id}>
@@ -54,6 +50,7 @@ export default class GameArtist extends PureComponent {
                   name="answer"
                   value={`artist-${index}`}
                   id={`artist-${index}`}
+                  onClick={() => onAnswer(answer)}
                 />
                 <label className="artist__name" htmlFor={`artist-${index}`}>
                   <img className="artist__picture" src={picture} alt={artist} />
