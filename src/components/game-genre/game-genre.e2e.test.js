@@ -32,24 +32,62 @@ const mock = {
   ],
 };
 
-it(`On submit gets called with the right arguments`, () => {
+it(`When users answer question is not sent`, () => {
 
+  const onSubmitForm = jest.fn();
+  const formSendPrevention = jest.fn();
+  const tree = shallow(<GameGenre
+    question={mock}
+    onAnswer={onSubmitForm}
+  />);
+
+  const inputElement = tree.find(`.game__tracks`);
+  inputElement.simulate(`submit`, {
+    preventDefault: formSendPrevention
+  });
+
+  expect(onSubmitForm).toHaveBeenCalledTimes(1);
+  expect(formSendPrevention).toHaveBeenCalledTimes(1);
+});
+
+it(`Rendered checkbox are synchronized with state`, () => {
   const onSubmitForm = jest.fn();
   const tree = shallow(<GameGenre
     question={mock}
     onAnswer={onSubmitForm}
-    questionNumber={0}
   />);
 
-  const inputElement = tree.find(`.game__tracks`);
-  inputElement.simulate(`submit`, {preventDefault() {}});
+  expect(tree.state(`userAnswers`)).toEqual([false, false, false, false]);
 
+  const inputs = tree.find(`input`);
+  const firstInput = inputs.at(0);
+  const secondInput = inputs.at(1);
+
+  firstInput.simulate(`change`);
+
+  expect(tree.state(`userAnswers`)).toEqual([true, false, false, false]);
+
+  firstInput.simulate(`change`);
+  expect(tree.state(`userAnswers`)).toEqual([false, false, false, false]);
+
+  secondInput.simulate(`change`);
+  expect(tree.state(`userAnswers`)).toEqual([false, true, false, false]);
+
+});
+
+it(`User answer passed to callback is consistent with internal component state`, () => {
+  const onSubmitForm = jest.fn();
+  const tree = shallow(<GameGenre
+    question={mock}
+    onAnswer={onSubmitForm}
+  />);
+
+  const inputs = tree.find(`input`);
+  const thirdInput = inputs.at(2);
+  thirdInput.simulate(`change`);
+  const form = tree.find(`form`);
+  form.simulate(`submit`, {preventDefault() {}});
+  expect(tree.state(`userAnswers`)).toEqual([false, false, true, false]);
   expect(onSubmitForm).toHaveBeenCalledTimes(1);
-
-  expect(onSubmitForm).toHaveBeenCalledWith(expect.objectContaining({
-    type: expect.any(String),
-    genre: expect.any(String),
-    answers: expect.any(Array)
-  }),
-  expect.any(Array));
+  expect(onSubmitForm).toHaveBeenNthCalledWith(1, [false, false, true, false]);
 });

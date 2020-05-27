@@ -50,7 +50,10 @@ export default class GameArtist extends PureComponent {
                   name="answer"
                   value={`artist-${index}`}
                   id={`artist-${index}`}
-                  onClick={() => onAnswer(answer)}
+                  onClick={(evt) => {
+                    evt.preventDefault();
+                    onAnswer(answer);
+                  }}
                 />
                 <label className="artist__name" htmlFor={`artist-${index}`}>
                   <img className="artist__picture" src={picture} alt={artist} />

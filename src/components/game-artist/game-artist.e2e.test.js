@@ -30,29 +30,45 @@ const mock = {
   ],
 };
 
+const mockEvent = {
+  preventDefault() {}
+};
+
 it(`On change gets called with the right arguments`, () => {
-  const onFormChange = jest.fn();
+  const onUserAnswer = jest.fn();
   const tree = shallow(<GameArtist
     question={mock}
-    onAnswer={onFormChange}
+    onAnswer={onUserAnswer}
     questionNumber={0}
   />);
 
-  const formElement = tree.find(`.game__artist`);
-  formElement.simulate(`change`, {target: {value: `artist-1`}});
+  const answerInputs = tree.find(`.artist__input`);
+  const firstAnswer = answerInputs.at(0);
+  const secondAnswer = answerInputs.at(1);
+  const thirdAnswer = answerInputs.at(2);
 
-  expect(onFormChange).toHaveBeenCalledTimes(1);
+  firstAnswer.simulate(`click`, mockEvent);
+  secondAnswer.simulate(`click`, mockEvent);
+  thirdAnswer.simulate(`click`, mockEvent);
 
-  expect(onFormChange).toHaveBeenCalledWith(expect.objectContaining({
-    type: expect.any(String),
-    song: expect.objectContaining({
-      artist: expect.any(String),
-      src: expect.any(String)
-    }),
-    answers: expect.any(Array)
-  }),
-  expect.objectContaining({
-    picture: expect.any(String),
-    artist: expect.any(String),
-  }));
+  expect(onUserAnswer).toHaveBeenCalledTimes(3);
+
+  expect(onUserAnswer).toHaveBeenNthCalledWith(1, {
+    id: 1,
+    picture: `https://via.placeholder.com/134x134`,
+    artist: `Mikle Jackson`
+  });
+
+  expect(onUserAnswer).toHaveBeenNthCalledWith(2, {
+    id: 2,
+    picture: `https://via.placeholder.com/134x134`,
+    artist: `Selena Gomez`,
+  });
+
+  expect(onUserAnswer).toHaveBeenNthCalledWith(3, {
+    id: 3,
+    picture: `https://via.placeholder.com/134x134`,
+    artist: `50 cent`,
+  });
+
 });
