@@ -1,3 +1,11 @@
+const isArtistAnswerCorrect = (userAnswer, question) =>
+  userAnswer.artist === question.song.artist;
+
+const isGenreAnswerCorrect = (userAnswer, question) =>
+  userAnswer.every((it, index) =>
+    it === (question.answers[index].genre === question.genre)
+  );
+
 const initialState = {
   step: -1,
   mistakes: 0
@@ -20,4 +28,4 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-export {reducer};
+export {reducer, isArtistAnswerCorrect, isGenreAnswerCorrect};
