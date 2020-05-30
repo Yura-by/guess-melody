@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import Mistakes from '../mistakes/mistakes.jsx';
 
 const GameScreen = (props) => {
-  const {type, children} = props;
+  const {type, children, mistakes, gameTime} = props;
   return (
     <section className={`game game--${type}`}>
       <header className="game__header">
@@ -21,11 +23,9 @@ const GameScreen = (props) => {
           <span className="timer__secs">00</span>
         </div>
 
-        <div className="game__mistakes">
-          <div className="wrong"></div>
-          <div className="wrong"></div>
-          <div className="wrong"></div>
-        </div>
+        <Mistakes
+          mistakes={mistakes}
+        />
       </header>
       {children}
     </section>
@@ -40,4 +40,11 @@ GameScreen.propTypes = {
   ]).isRequired
 };
 
-export default GameScreen;
+const mapStateToProps = (state) => ({
+  mistakes: state.mistakes,
+  gameTime: state.gameTime
+});
+
+export {GameScreen};
+
+export default connect(mapStateToProps)(GameScreen);

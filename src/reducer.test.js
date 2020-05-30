@@ -1,4 +1,4 @@
-import {reducer, isArtistAnswerCorrect, isGenreAnswerCorrect} from './reducer.js';
+import {reducer, isArtistAnswerCorrect, isGenreAnswerCorrect, ActionCreator} from './reducer.js';
 
 describe(`Reducer works correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
@@ -49,6 +49,19 @@ describe(`Reducer works correctly`, () => {
       mistakes: 0
     }, {
       type: `INCREMENT_MISTAKES`,
+      payload: 0
+    })).toEqual({
+      step: -1,
+      mistakes: 0
+    });
+  });
+
+  it(`Reducer should correctly reset application state`, () => {
+    expect(reducer({
+      step: 1000,
+      mistakes: 15000
+    }, {
+      type: `RESET`,
       payload: 0
     })).toEqual({
       step: -1,
@@ -175,4 +188,208 @@ describe(`Buisness-logic is correct`, () => {
       ],
     })).toBe(false);
   });
+});
+
+describe(`ActionCreator works correctly`, () => {
+  it(`ActionCreator for increment step return correct action`, () => {
+    expect(ActionCreator.incrementStep()).toEqual({
+      type: `INCREMENT_STEP`,
+      payload: 1
+    });
+  });
+
+  it(`ActonCreator for increment mistake artist question return action with 0 mistakes`, () => {
+    expect(ActionCreator.incrementMistake({
+      id: 1,
+      picture: `path`,
+      artist: `correct`
+    }, {
+      type: `artist`,
+      song: {
+        artist: `correct`,
+        src: `path`,
+      },
+      answers: [
+        {
+          id: 1,
+          picture: `path`,
+          artist: `correct`,
+        },
+        {
+          id: 2,
+          picture: `path`,
+          artist: `incorrect`,
+        },
+        {
+          id: 3,
+          picture: `path`,
+          artist: `incorrect`,
+        },
+      ],
+    }, 0, Infinity)).toEqual({
+      type: `INCREMENT_MISTAKES`,
+      payload: 0
+    });
+  });
+
+  it(`ActonCreator for increment mistake artist question return action with 1 mistakes`, () => {
+    expect(ActionCreator.incrementMistake({
+      id: 1,
+      picture: `path`,
+      artist: `incorrect`
+    }, {
+      type: `artist`,
+      song: {
+        artist: `correct`,
+        src: `path`,
+      },
+      answers: [
+        {
+          id: 1,
+          picture: `path`,
+          artist: `icorrect`,
+        },
+        {
+          id: 2,
+          picture: `path`,
+          artist: `incorrect`,
+        },
+        {
+          id: 3,
+          picture: `path`,
+          artist: `incorrect`,
+        },
+      ],
+    }, 0, Infinity)).toEqual({
+      type: `INCREMENT_MISTAKES`,
+      payload: 1
+    });
+  });
+
+  it(`ActionCreator for increment mistake question genre return mistakes 0`, () => {
+    expect(ActionCreator.incrementMistake([false, true, true, false], {
+      type: `genre`,
+      genre: `correct`,
+      answers: [
+        {
+          id: 1,
+          src: `path`,
+          genre: `incorrect`,
+        },
+        {
+          id: 2,
+          src: `path`,
+          genre: `correct`,
+        },
+        {
+          id: 3,
+          src: `path`,
+          genre: `correct`,
+        },
+        {
+          id: 4,
+          src: `path`,
+          genre: `incorrect`,
+        },
+      ],
+    }, 0, Infinity)).toEqual({
+      type: `INCREMENT_MISTAKES`,
+      payload: 0
+    });
+  });
+
+  it(`ActionCreator for increment mistake question genre return mistakes 1`, () => {
+    expect(ActionCreator.incrementMistake([true, true, true, false], {
+      type: `genre`,
+      genre: `correct`,
+      answers: [
+        {
+          id: 1,
+          src: `path`,
+          genre: `incorrect`,
+        },
+        {
+          id: 2,
+          src: `path`,
+          genre: `incorrect`,
+        },
+        {
+          id: 3,
+          src: `path`,
+          genre: `correct`,
+        },
+        {
+          id: 4,
+          src: `path`,
+          genre: `incorrect`,
+        },
+      ],
+    }, 0, Infinity)).toEqual({
+      type: `INCREMENT_MISTAKES`,
+      payload: 1
+    });
+  });
+
+  it(`ActionCreator reset state when user answers uncorrectly and there is no mistakes left`, () => {
+    expect(ActionCreator.incrementMistake({
+      id: 1,
+      picture: `path`,
+      artist: `incorrect`
+    }, {
+      type: `artist`,
+      song: {
+        artist: `correct`,
+        src: `path`,
+      },
+      answers: [
+        {
+          id: 1,
+          picture: `path`,
+          artist: `icorrect`,
+        },
+        {
+          id: 2,
+          picture: `path`,
+          artist: `incorrect`,
+        },
+        {
+          id: 3,
+          picture: `path`,
+          artist: `incorrect`,
+        },
+      ],
+    }, Infinity, 0)).toEqual({
+      type: `RESET`
+    });
+
+    expect(ActionCreator.incrementMistake([true, true, true, false], {
+      type: `genre`,
+      genre: `correct`,
+      answers: [
+        {
+          id: 1,
+          src: `path`,
+          genre: `incorrect`,
+        },
+        {
+          id: 2,
+          src: `path`,
+          genre: `incorrect`,
+        },
+        {
+          id: 3,
+          src: `path`,
+          genre: `correct`,
+        },
+        {
+          id: 4,
+          src: `path`,
+          genre: `incorrect`,
+        },
+      ],
+    }, Infinity, 0)).toEqual({
+      type: `RESET`
+    });
+  });
+
 });
