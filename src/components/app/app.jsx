@@ -7,6 +7,8 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import GameScreen from '../game-screen/game-screen.jsx';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer.js';
+import Timer from '../../timer.js';
+import FailTime from '../fail-time/fail-time.jsx';
 
 const questionType = {
   ARTIST: `artist`,
@@ -16,7 +18,7 @@ const questionType = {
 class App extends PureComponent {
 
   _renderGameScreen() {
-    const {gameTime, questions, mistakes, maxMistakes, step, onWelcomeScreenClick, onUserAnswer} = this.props;
+    const {gameTime, questions, mistakes, maxMistakes, step, onWelcomeScreenClick, onUserAnswer, onUserResetGame} = this.props;
     const question = questions[step];
 
     if (step === -1 || step >= questions.length) {
@@ -25,8 +27,20 @@ class App extends PureComponent {
         <WelcomeScreen
           time={gameTime}
           errorCount={maxMistakes}
-          onStartButtonClick={onWelcomeScreenClick}
+          onStartButtonClick={
+            () => {
+              onWelcomeScreenClick(gameTime);
+            }
+          }
         />);
+    }
+
+    if (step === -2) {
+      return (
+        <FailTime
+          onUserClick={onUserResetGame}
+        />
+      );
     }
 
     if (question) {
@@ -115,11 +129,31 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onWelcomeScreenClick: () => dispatch(ActionCreator.incrementStep()),
+  onWelcomeScreenClick: (gameTime) => {
+    dispatch(ActionCreator.incrementStep());
+    const timer = new Timer(gameTime, () => {
+      dispatch(ActionCreator.timeEnded());
+    });
+
+    let timerId = setTimeout(function run() {
+      timer.tick();
+      dispatch(ActionCreator.reduceTime(timer.getLastTime()));
+      dispatch(ActionCreator.setTimerId(timerId));
+      if (timer.getLastTime() === 0) {
+        clearTimeout(timerId);
+        return;
+      }
+      timerId = setTimeout(run, 1000);
+    }, 1000);
+  },
 
   onUserAnswer: (userAnswer, question, mistakes, maxMistakes) => {
     dispatch(ActionCreator.incrementMistake(userAnswer, question, mistakes, maxMistakes));
     dispatch(ActionCreator.incrementStep());
+  },
+
+  onUserResetGame: () => {
+    dispatch(ActionCreator.resetGame());
   }
 });
 

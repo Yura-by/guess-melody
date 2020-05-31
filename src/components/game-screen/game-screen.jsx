@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import Mistakes from '../mistakes/mistakes.jsx';
+import Timer from '../timer/timer.jsx';
 
 const GameScreen = (props) => {
   const {type, children, mistakes, gameTime} = props;
@@ -17,11 +18,7 @@ const GameScreen = (props) => {
           <circle className="timer__line" cx="390" cy="390" r="370" />
         </svg>
 
-        <div className="timer__value" xmlns="http://www.w3.org/1999/xhtml">
-          <span className="timer__mins">05</span>
-          <span className="timer__dots">:</span>
-          <span className="timer__secs">00</span>
-        </div>
+        <Timer />
 
         <Mistakes
           mistakes={mistakes}

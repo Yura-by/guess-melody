@@ -4,9 +4,12 @@ const initialState = {
   step: -1,
   mistakes: 0,
   maxMistakes: 3,
-  gameTime: 5,
+  gameTime: 20,
+  currentTime: 0,
   questions,
+  timerId: 0
 };
+
 
 const isArtistAnswerCorrect = (userAnswer, question) =>
   userAnswer.artist === question.song.artist;
@@ -20,6 +23,30 @@ const ActionCreator = {
   incrementStep: () => ({
     type: `INCREMENT_STEP`,
     payload: 1
+  }),
+
+  reduceTime: (currentTime) => {
+    return {
+      type: `REDUCE_TIME`,
+      payload: currentTime
+    };
+  },
+
+  setTimerId: (timerId) => {
+    return {
+      type: `SET_TIMER_ID`,
+      payload: timerId
+    };
+  },
+
+  timeEnded: () => {
+    return {
+      type: `TIME_ENDED`,
+    };
+  },
+
+  resetGame: () => ({
+    type: `RESET`
   }),
 
   incrementMistake: (userAnswer, question, mistakes, maxMistakes) => {
@@ -62,6 +89,18 @@ const reducer = (state = initialState, action) => {
       });
     case `RESET`:
       return Object.assign({}, initialState);
+    case `REDUCE_TIME`:
+      return Object.assign({}, state, {
+        currentTime: action.payload
+      });
+    case `TIME_ENDED`:
+      return Object.assign({}, state, {
+        step: -2
+      });
+    case `SET_TIMER_ID`:
+      return Object.assign({}, state, {
+        timerId: action.payload
+      });
   }
 
   return state;
