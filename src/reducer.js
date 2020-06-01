@@ -78,6 +78,7 @@ const reducer = (state = initialState, action) => {
     case `INCREMENT_STEP`:
       const nextStep = state.step + action.payload;
       if (nextStep >= state.questions.length) {
+        clearInterval(state.timerId);
         return Object.assign({}, initialState);
       }
       return Object.assign({}, state, {

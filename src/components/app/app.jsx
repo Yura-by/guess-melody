@@ -130,42 +130,21 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onWelcomeScreenClick: (gameTime, currentTimer) => {
-
-    clearTimeout(currentTimer + 2);
-    // if (currentTimer !== -1) {
-    //   clearInterval(currentTimer);
-    // }
-    // dispatch(ActionCreator.incrementStep());
-    // const timer = new Timer(gameTime, () => {
-    //   clearInterval(timerID);
-    //   dispatch(ActionCreator.timeEnded());
-    // });
-
-    // let timerID = setInterval(() => {
-    //   timer.tick();
-    //   dispatch(ActionCreator.reduceTime(timer.getLastTime()));
-    //   dispatch(ActionCreator.setTimerId(timerID));
-    // }, 1000);
-
+  onWelcomeScreenClick: (gameTime, currentTimerId) => {
+    if (currentTimerId !== -1) {
+      clearInterval(currentTimerId);
+    }
     dispatch(ActionCreator.incrementStep());
     const timer = new Timer(gameTime, () => {
-      console.log(timerId)
-      clearTimeout(timerId + 2);
+      clearInterval(timerID);
       dispatch(ActionCreator.timeEnded());
     });
 
-    let timerId = setTimeout(function run() {
-      dispatch(ActionCreator.reduceTime(timer.getLastTime()));
-      dispatch(ActionCreator.setTimerId(timerId));
+    let timerID = setInterval(() => {
       timer.tick();
-      // if (timer.getLastTime() === 0) {
-      //   clearTimeout(timerId);
-      //   return;
-      // }
-      timerId = setTimeout(run, 1000);
-      console.log(timerId)
+      dispatch(ActionCreator.reduceTime(timer.getLastTime()));
     }, 1000);
+    dispatch(ActionCreator.setTimerId(timerID));
   },
 
   onUserAnswer: (userAnswer, question, mistakes, maxMistakes) => {
