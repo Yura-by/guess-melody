@@ -18,7 +18,7 @@ const questionType = {
 class App extends PureComponent {
 
   _renderGameScreen() {
-    const {gameTime, questions, mistakes, maxMistakes, step, onWelcomeScreenClick, onUserAnswer, onUserResetGame} = this.props;
+    const {gameTime, questions, mistakes, maxMistakes, step, onWelcomeScreenClick, onUserAnswer, onUserResetGame, timerId} = this.props;
     const question = questions[step];
 
     if (step === -1 || step >= questions.length) {
@@ -29,7 +29,7 @@ class App extends PureComponent {
           errorCount={maxMistakes}
           onStartButtonClick={
             () => {
-              onWelcomeScreenClick(gameTime);
+              onWelcomeScreenClick(gameTime, timerId);
             }
           }
         />);
@@ -125,25 +125,46 @@ const mapStateToProps = (state, ownProps) => {
     gameTime: state.gameTime,
     questions: state.questions,
     maxMistakes: state.maxMistakes,
+    timerId: state.timerId,
   });
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onWelcomeScreenClick: (gameTime) => {
+  onWelcomeScreenClick: (gameTime, currentTimer) => {
+
+    clearTimeout(currentTimer + 2);
+    // if (currentTimer !== -1) {
+    //   clearInterval(currentTimer);
+    // }
+    // dispatch(ActionCreator.incrementStep());
+    // const timer = new Timer(gameTime, () => {
+    //   clearInterval(timerID);
+    //   dispatch(ActionCreator.timeEnded());
+    // });
+
+    // let timerID = setInterval(() => {
+    //   timer.tick();
+    //   dispatch(ActionCreator.reduceTime(timer.getLastTime()));
+    //   dispatch(ActionCreator.setTimerId(timerID));
+    // }, 1000);
+
     dispatch(ActionCreator.incrementStep());
     const timer = new Timer(gameTime, () => {
+      console.log(timerId)
+      clearTimeout(timerId + 2);
       dispatch(ActionCreator.timeEnded());
     });
 
     let timerId = setTimeout(function run() {
-      timer.tick();
       dispatch(ActionCreator.reduceTime(timer.getLastTime()));
       dispatch(ActionCreator.setTimerId(timerId));
-      if (timer.getLastTime() === 0) {
-        clearTimeout(timerId);
-        return;
-      }
+      timer.tick();
+      // if (timer.getLastTime() === 0) {
+      //   clearTimeout(timerId);
+      //   return;
+      // }
       timerId = setTimeout(run, 1000);
+      console.log(timerId)
     }, 1000);
   },
 

@@ -7,7 +7,7 @@ const initialState = {
   gameTime: 20,
   currentTime: 0,
   questions,
-  timerId: 0
+  timerId: -1
 };
 
 

@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 const correctTime = (value) => {
-  if (value / 10 > 1) {
+  if (value / 10 >= 1) {
     return value;
   }
 
