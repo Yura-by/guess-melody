@@ -29,7 +29,7 @@ class App extends PureComponent {
           errorCount={maxMistakes}
           onStartButtonClick={
             () => {
-              onWelcomeScreenClick(gameTime, timerId);
+              onWelcomeScreenClick(gameTime, timerId, step, questions.length);
             }
           }
         />);
@@ -54,7 +54,7 @@ class App extends PureComponent {
               <GameGenre
                 question={question}
                 onAnswer={(userAnswer) => {
-                  onUserAnswer(userAnswer, question, mistakes, maxMistakes);
+                  onUserAnswer(userAnswer, question, mistakes, maxMistakes, step, timerId, questions.length);
                 }}
               />
             </GameScreen>
@@ -67,7 +67,8 @@ class App extends PureComponent {
               <GameArtist
                 question={question}
                 onAnswer={(userAnswer) => {
-                  onUserAnswer(userAnswer, question, mistakes, maxMistakes);
+                  // userAnswer, question, mistakes, maxMistakes, timerId, step, questionsLength
+                  onUserAnswer(userAnswer, question, mistakes, maxMistakes, step, timerId, questions.length);
                 }}
               />
             </GameScreen>
@@ -130,11 +131,8 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onWelcomeScreenClick: (gameTime, currentTimerId) => {
-    if (currentTimerId !== -1) {
-      clearInterval(currentTimerId);
-    }
-    dispatch(ActionCreator.incrementStep());
+  onWelcomeScreenClick: (gameTime, currentTimerId, step, questionsLength) => {
+    dispatch(ActionCreator.incrementStep(step, currentTimerId, questionsLength));
     const timer = new Timer(gameTime, () => {
       clearInterval(timerID);
       dispatch(ActionCreator.timeEnded());
@@ -147,9 +145,9 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.setTimerId(timerID));
   },
 
-  onUserAnswer: (userAnswer, question, mistakes, maxMistakes) => {
-    dispatch(ActionCreator.incrementMistake(userAnswer, question, mistakes, maxMistakes));
-    dispatch(ActionCreator.incrementStep());
+  onUserAnswer: (userAnswer, question, mistakes, maxMistakes, step, timerId, questionsLength) => {
+    dispatch(ActionCreator.incrementMistake(userAnswer, question, mistakes, maxMistakes, timerId));
+    dispatch(ActionCreator.incrementStep(step, timerId, questionsLength));
   },
 
   onUserResetGame: () => {

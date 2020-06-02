@@ -3,7 +3,7 @@ import questions from './mocks/questions.js';
 const initialState = {
   step: -1,
   mistakes: 0,
-  maxMistakes: 3,
+  maxMistakes: 1,
   gameTime: 20,
   currentTime: 0,
   questions,
@@ -20,10 +20,19 @@ const isGenreAnswerCorrect = (userAnswer, question) =>
   );
 
 const ActionCreator = {
-  incrementStep: () => ({
-    type: `INCREMENT_STEP`,
-    payload: 1
-  }),
+  incrementStep: (step, timerId, questionsLength) => {
+    const nextStep = step + 1;
+    if (nextStep >= questionsLength) {
+      clearInterval(timerId);
+      return {
+        type: `RESET`
+      };
+    }
+    return {
+      type: `INCREMENT_STEP`,
+      payload: 1
+    };
+  },
 
   reduceTime: (currentTime) => {
     return {
@@ -42,6 +51,7 @@ const ActionCreator = {
   timeEnded: () => {
     return {
       type: `TIME_ENDED`,
+      payload: -2
     };
   },
 
@@ -49,7 +59,7 @@ const ActionCreator = {
     type: `RESET`
   }),
 
-  incrementMistake: (userAnswer, question, mistakes, maxMistakes) => {
+  incrementMistake: (userAnswer, question, mistakes, maxMistakes, timerId) => {
     let isAnswerCorrect = false;
     switch (question.type) {
       case (`artist`) :
@@ -61,8 +71,10 @@ const ActionCreator = {
     }
 
     if (!isAnswerCorrect && mistakes + 1 >= maxMistakes) {
+      clearInterval(timerId);
       return {
-        type: `RESET`
+        type: `TIME_ENDED`,
+        payload: -2
       };
     }
 
@@ -76,13 +88,8 @@ const ActionCreator = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case `INCREMENT_STEP`:
-      const nextStep = state.step + action.payload;
-      if (nextStep >= state.questions.length) {
-        clearInterval(state.timerId);
-        return Object.assign({}, initialState);
-      }
       return Object.assign({}, state, {
-        step: nextStep
+        step: state.step >= -1 ? state.step + action.payload : state.step
       });
     case `INCREMENT_MISTAKES`:
       return Object.assign({}, state, {
@@ -96,7 +103,7 @@ const reducer = (state = initialState, action) => {
       });
     case `TIME_ENDED`:
       return Object.assign({}, state, {
-        step: -2
+        step: action.payload
       });
     case `SET_TIMER_ID`:
       return Object.assign({}, state, {
