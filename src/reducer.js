@@ -4,7 +4,7 @@ const initialState = {
   step: -1,
   mistakes: 0,
   maxMistakes: 3,
-  gameTime: 120,
+  gameTime: 100,
   currentTime: 0,
   questions,
   timerId: -1

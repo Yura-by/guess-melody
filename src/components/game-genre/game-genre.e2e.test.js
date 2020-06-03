@@ -90,4 +90,6 @@ it(`User answer passed to callback is consistent with internal component state`,
   expect(tree.state(`userAnswers`)).toEqual([false, false, true, false]);
   expect(onSubmitForm).toHaveBeenCalledTimes(1);
   expect(onSubmitForm).toHaveBeenNthCalledWith(1, [false, false, true, false]);
+
+  expect(tree.find(`input`).map((it) => it.prop(`checked`))).toEqual([false, false, true, false]);
 });

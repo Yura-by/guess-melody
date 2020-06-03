@@ -117,17 +117,15 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  gameData: PropTypes.shape({
-    settings: PropTypes.shape({
-      gameTime: PropTypes.number.isRequired,
-      maxMistakes: PropTypes.number.isRequired
-    }).isRequired,
-    questions: PropTypes.arrayOf(PropTypes.object).isRequired
-  }),
+  gameTime: PropTypes.number.isRequired,
+  maxMistakes: PropTypes.number.isRequired,
   step: PropTypes.number.isRequired,
   mistakes: PropTypes.number.isRequired,
   onWelcomeScreenClick: PropTypes.func.isRequired,
-  onUserAnswer: PropTypes.func.isRequired
+  onUserAnswer: PropTypes.func.isRequired,
+  questions: PropTypes.array.isRequired,
+  onUserResetGame: PropTypes.func,
+  timerId: PropTypes.number.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => {

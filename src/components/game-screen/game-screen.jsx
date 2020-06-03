@@ -5,7 +5,7 @@ import Mistakes from '../mistakes/mistakes.jsx';
 import Timer from '../timer/timer.jsx';
 
 const GameScreen = (props) => {
-  const {type, children, mistakes, gameTime} = props;
+  const {type, children, mistakes} = props;
   return (
     <section className={`game game--${type}`}>
       <header className="game__header">
@@ -34,12 +34,12 @@ GameScreen.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object
-  ]).isRequired
+  ]).isRequired,
+  mistakes: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   mistakes: state.mistakes,
-  gameTime: state.gameTime
 });
 
 export {GameScreen};

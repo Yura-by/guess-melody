@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const FailTime = ({onUserClick}) => {
   return (
@@ -11,6 +12,10 @@ const FailTime = ({onUserClick}) => {
       >Попробовать ещё раз</button>
     </section>
   );
+};
+
+FailTime.propTypes = {
+  onUserClick: PropTypes.func.isRequired
 };
 
 export default FailTime;

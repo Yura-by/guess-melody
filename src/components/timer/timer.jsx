@@ -22,10 +22,14 @@ const Timer = ({currentTime}) => {
   );
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
     currentTime: state.currentTime
   };
+};
+
+Timer.propTypes = {
+  currentTime: PropTypes.number.isRequired,
 };
 
 export {Timer};

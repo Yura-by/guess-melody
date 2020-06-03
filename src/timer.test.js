@@ -30,4 +30,6 @@ it(`Timer currently gives time, calles callback when time ends`, () => {
   newTimer.tick();
   expect(newTimer.getLastTime()).toBe(0);
   expect(onTimerEnd).toHaveBeenCalledTimes(1);
+  newTimer.tick();
+  expect(newTimer.getLastTime()).toBe(0);
 });
