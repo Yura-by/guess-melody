@@ -18,14 +18,25 @@ const questionType = {
 class App extends PureComponent {
 
   _renderGameScreen() {
-    const {gameTime, questions, mistakes, maxMistakes, step, onWelcomeScreenClick, onUserAnswer, onUserResetGame, timerId} = this.props;
+    const {
+      gameTime,
+      questions,
+      mistakes,
+      maxMistakes,
+      step,
+      onWelcomeScreenClick,
+      onUserAnswer,
+      onUserResetGame,
+      timerId
+    } = this.props;
+
     const question = questions[step];
 
     if (step === -1 || step >= questions.length) {
 
       return (
         <WelcomeScreen
-          time={gameTime}
+          time={gameTime / 60}
           errorCount={maxMistakes}
           onStartButtonClick={
             () => {

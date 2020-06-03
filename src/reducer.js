@@ -3,8 +3,8 @@ import questions from './mocks/questions.js';
 const initialState = {
   step: -1,
   mistakes: 0,
-  maxMistakes: 1,
-  gameTime: 20,
+  maxMistakes: 3,
+  gameTime: 120,
   currentTime: 0,
   questions,
   timerId: -1
