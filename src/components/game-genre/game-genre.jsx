@@ -1,6 +1,5 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import AudioPlayer from '../audio-player/audio-player.jsx';
 
 export default class GameGenre extends PureComponent {
   constructor(props) {
@@ -8,13 +7,12 @@ export default class GameGenre extends PureComponent {
     const {answers} = props.question;
 
     this.state = {
-      activePlayer: -1,
       userAnswers: new Array(answers.length).fill(false)
     };
   }
 
   render() {
-    const {question, onAnswer} = this.props;
+    const {question, onAnswer, renderPlayer} = this.props;
     const {genre, answers} = question;
     const {userAnswers} = this.state;
     return (
@@ -29,20 +27,10 @@ export default class GameGenre extends PureComponent {
         >
 
           {answers.map((answer, index) => {
-            const {src, id} = answer;
+            const {id} = answer;
             return (
               <div className="track" key={id}>
-                <AudioPlayer
-                  src={src}
-                  isPlaying={index === this.state.activePlayer}
-                  onPlayButtonClick={() => {
-                    this.setState(({activePlayer}) => {
-                      return {
-                        activePlayer: activePlayer === index ? -1 : index
-                      };
-                    });
-                  }}
-                />
+                {renderPlayer(answer, index)}
                 <div className="game__answer">
                   <input
                     className="game__input visually-hidden"
@@ -87,4 +75,5 @@ GameGenre.propTypes = {
     }))
   }).isRequired,
   onAnswer: PropTypes.func.isRequired,
+  renderPlayer: PropTypes.func.isRequired
 };

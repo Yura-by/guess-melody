@@ -34,11 +34,14 @@ const mock = {
 
 it(`When users answer question is not sent`, () => {
 
+  const renderPlayer = jest.fn();
+
   const onSubmitForm = jest.fn();
   const formSendPrevention = jest.fn();
   const tree = shallow(<GameGenre
     question={mock}
     onAnswer={onSubmitForm}
+    renderPlayer={renderPlayer}
   />);
 
   const inputElement = tree.find(`.game__tracks`);
@@ -51,10 +54,13 @@ it(`When users answer question is not sent`, () => {
 });
 
 it(`Rendered checkbox are synchronized with state`, () => {
+  const renderPlayer = jest.fn();
+
   const onSubmitForm = jest.fn();
   const tree = shallow(<GameGenre
     question={mock}
     onAnswer={onSubmitForm}
+    renderPlayer={renderPlayer}
   />);
 
   expect(tree.state(`userAnswers`)).toEqual([false, false, false, false]);
@@ -76,10 +82,13 @@ it(`Rendered checkbox are synchronized with state`, () => {
 });
 
 it(`User answer passed to callback is consistent with internal component state`, () => {
+  const renderPlayer = jest.fn();
+
   const onSubmitForm = jest.fn();
   const tree = shallow(<GameGenre
     question={mock}
     onAnswer={onSubmitForm}
+    renderPlayer={renderPlayer}
   />);
 
   const inputs = tree.find(`input`);

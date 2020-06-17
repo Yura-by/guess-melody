@@ -9,6 +9,9 @@ import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer.js';
 import Timer from '../../timer.js';
 import FailTime from '../fail-time/fail-time.jsx';
+import withActivePlayer from '../../hocs/with-active-player/with-active-player.jsx';
+
+const GameGenreWrapped = withActivePlayer(GameGenre);
 
 const questionType = {
   ARTIST: `artist`,
@@ -62,7 +65,7 @@ class App extends PureComponent {
             <GameScreen
               type={type}
             >
-              <GameGenre
+              <GameGenreWrapped
                 question={question}
                 onAnswer={(userAnswer) => {
                   onUserAnswer(userAnswer, question, mistakes, maxMistakes, step, timerId, questions.length);
@@ -93,25 +96,26 @@ class App extends PureComponent {
   render() {
     const {questions} = this.props;
     return (
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/">
-            {this._renderGameScreen()}
-          </Route>
-          <Route exact path="/artist">
-            <GameArtist
-              question={questions[1]}
-              onAnswer={() => {}}
-            />
-          </Route>
-          <Route path="/genre">
-            <GameGenre
-              question={questions[0]}
-              onAnswer={() => {}}
-            />
-          </Route>
-        </Switch>
-      </BrowserRouter>
+      this._renderGameScreen()
+      // <BrowserRouter>
+      //   <Switch>
+      //     <Route exact path="/">
+      //       {this._renderGameScreen()}
+      //     </Route>
+      //     <Route exact path="/artist">
+      //       <GameArtist
+      //         question={questions[1]}
+      //         onAnswer={() => {}}
+      //       />
+      //     </Route>
+      //     <Route path="/genre">
+      //       <GameGenre
+      //         question={questions[0]}
+      //         onAnswer={() => {}}
+      //       />
+      //     </Route>
+      //   </Switch>
+      // </BrowserRouter>
     );
   }
 }
