@@ -39,7 +39,7 @@ it(`On change gets called with the right arguments`, () => {
   const tree = shallow(<GameArtist
     question={mock}
     onAnswer={onUserAnswer}
-    questionNumber={0}
+    renderPlayer={jest.fn()}
   />);
 
   const answerInputs = tree.find(`.artist__input`);

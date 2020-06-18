@@ -32,7 +32,7 @@ it(`GameArtist snaphot test`, () => {
     .create(<GameArtist
       question={mock}
       onAnswer={() => {}}
-      questionNumber={0}
+      renderPlayer={jest.fn()}
     />,
     {
       createNodeMock: () => {

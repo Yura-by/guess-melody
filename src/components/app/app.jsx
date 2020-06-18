@@ -12,6 +12,7 @@ import FailTime from '../fail-time/fail-time.jsx';
 import withActivePlayer from '../../hocs/with-active-player/with-active-player.jsx';
 
 const GameGenreWrapped = withActivePlayer(GameGenre);
+const GameArtistWrapped = withActivePlayer(GameArtist);
 
 const questionType = {
   ARTIST: `artist`,
@@ -78,10 +79,9 @@ class App extends PureComponent {
             <GameScreen
               type={type}
             >
-              <GameArtist
+              <GameArtistWrapped
                 question={question}
                 onAnswer={(userAnswer) => {
-                  // userAnswer, question, mistakes, maxMistakes, timerId, step, questionsLength
                   onUserAnswer(userAnswer, question, mistakes, maxMistakes, step, timerId, questions.length);
                 }}
               />

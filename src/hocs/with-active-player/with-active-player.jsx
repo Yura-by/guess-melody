@@ -9,6 +9,16 @@ const withActivePlayer = (Component) => {
       this.state = {
         activePlayer: -1
       };
+
+      this._onPlayButtonClick = this._onPlayButtonClick.bind(this);
+    }
+
+    _onPlayButtonClick(index) {
+      this.setState((prevProps) => {
+        return {
+          activePlayer: prevProps.activePlayer === index ? -1 : index
+        };
+      });
     }
 
     render() {
@@ -21,11 +31,7 @@ const withActivePlayer = (Component) => {
               src={it.src}
               isPlaying={index === activePlayer}
               onPlayButtonClick={() => {
-                this.setState((prevProps) => {
-                  return {
-                    activePlayer: prevProps.activePlayer === index ? -1 : index
-                  };
-                });
+                this._onPlayButtonClick(index);
               }}
             />);
         }}
