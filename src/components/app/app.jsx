@@ -10,8 +10,9 @@ import {ActionCreator} from '../../reducer.js';
 import Timer from '../../timer.js';
 import FailTime from '../fail-time/fail-time.jsx';
 import withActivePlayer from '../../hocs/with-active-player/with-active-player.jsx';
+import withUserAnswer from '../../hocs/with-user-answer/with-user-answer.jsx';
 
-const GameGenreWrapped = withActivePlayer(GameGenre);
+const GameGenreWrapped = withUserAnswer(withActivePlayer(GameGenre));
 const GameArtistWrapped = withActivePlayer(GameArtist);
 
 const questionType = {

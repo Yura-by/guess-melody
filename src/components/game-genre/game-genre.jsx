@@ -2,19 +2,10 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 export default class GameGenre extends PureComponent {
-  constructor(props) {
-    super(props);
-    const {answers} = props.question;
-
-    this.state = {
-      userAnswers: new Array(answers.length).fill(false)
-    };
-  }
 
   render() {
-    const {question, onAnswer, renderPlayer} = this.props;
+    const {question, onAnswer, userAnswers, renderPlayer, onChange} = this.props;
     const {genre, answers} = question;
-    const {userAnswers} = this.state;
     return (
       <section className="game__screen">
         <h2 className="game__title">Выберите {genre} треки</h2>
@@ -39,12 +30,7 @@ export default class GameGenre extends PureComponent {
                     id={`answer-${index}`}
                     checked={userAnswers[index]}
                     onChange={() => {
-                      this.setState((prevState) => {
-                        const newAnswers = [...prevState.userAnswers];
-
-                        newAnswers[index] = !newAnswers[index];
-                        return {userAnswers: newAnswers};
-                      });
+                      onChange(index);
                     }}
                   />
                   <label className="game__check" htmlFor={`answer-${index}`}>Отметить</label>
@@ -75,5 +61,7 @@ GameGenre.propTypes = {
     }))
   }).isRequired,
   onAnswer: PropTypes.func.isRequired,
-  renderPlayer: PropTypes.func.isRequired
+  renderPlayer: PropTypes.func.isRequired,
+  userAnswers: PropTypes.array.isRequired,
+  onChange: PropTypes.func.isRequired
 };
