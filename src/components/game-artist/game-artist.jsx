@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const GameArtist = (props) => {
-  const {question, onAnswer, renderPlayer} = props;
+  const {question, onAnswer, renderQuestion} = props;
   const {answers, song} = question;
 
   return (
@@ -10,7 +10,7 @@ const GameArtist = (props) => {
       <h2 className="game__title">Кто исполняет эту песню?</h2>
       <div className="game__track">
         <div className="track">
-          {renderPlayer(song, 0)}
+          {renderQuestion(song, 0)}
         </div>
       </div>
 
@@ -58,7 +58,7 @@ GameArtist.propTypes = {
     })).isRequired
   }),
   onAnswer: PropTypes.func.isRequired,
-  renderPlayer: PropTypes.func.isRequired
+  renderQuestion: PropTypes.func.isRequired
 };
 
 export default GameArtist;

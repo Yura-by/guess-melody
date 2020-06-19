@@ -11,9 +11,26 @@ import Timer from '../../timer.js';
 import FailTime from '../fail-time/fail-time.jsx';
 import withActivePlayer from '../../hocs/with-active-player/with-active-player.jsx';
 import withUserAnswer from '../../hocs/with-user-answer/with-user-answer.jsx';
+import withTransformProps from '../../hocs/with-transform-props/with-transform-props.jsx';
 
-const GameGenreWrapped = withUserAnswer(withActivePlayer(GameGenre));
-const GameArtistWrapped = withActivePlayer(GameArtist);
+const transformPlayerToAnswer = (props) => {
+  const newProps = Object.assign({}, props, {
+    renderAnswer: props.renderPlayer
+  });
+  delete newProps.renderPlayer;
+  return newProps;
+};
+
+const transformPlayerToQuestion = (props) => {
+  const newProps = Object.assign({}, props, {
+    renderQuestion: props.renderPlayer
+  });
+  delete newProps.renderPlayer;
+  return newProps;
+};
+
+const GameGenreWrapped = withUserAnswer(withActivePlayer(withTransformProps(transformPlayerToAnswer)(GameGenre)));
+const GameArtistWrapped = withActivePlayer(withTransformProps(transformPlayerToQuestion)(GameArtist));
 
 const questionType = {
   ARTIST: `artist`,
