@@ -33,9 +33,7 @@ const withUserAnswer = (Component) => {
       return <Component
         {...this.props}
         userAnswers={this.state.userAnswers}
-        onChange={(index) => {
-          this._answersChangeHandler(index);
-        }}
+        onChange={this._answersChangeHandler}
         onAnswer={this._answersSubmitHandler}
       />;
     }
