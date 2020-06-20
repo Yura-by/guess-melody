@@ -1,8 +1,8 @@
 import React, {PureComponent, createRef} from 'react';
 import PropTypes from 'prop-types';
 
-const withPlayerSettings = (Component) => {
-  class WithPlayerSettings extends PureComponent {
+const withPlayer = (Component) => {
+  class WithPlayer extends PureComponent {
 
     constructor(props) {
       super(props);
@@ -26,15 +26,19 @@ const withPlayerSettings = (Component) => {
       const {isLoading, isPlaying} = this.state;
       return <Component
         {...this.props}
-        reference={this._audioRef}
         isLoading={isLoading}
         isPlaying={isPlaying}
         onPlayButtonClick={this._buttonClickHandler}
-      />;
+      >
+        <audio
+          ref={this._audioRef}
+        />
+      </Component>;
     }
 
     _buttonClickHandler() {
-      this.props.onPlayButtonClick();
+      const {onPlayButtonClick} = this.props;
+      onPlayButtonClick();
       this.setState(({isPlaying}) => {
         return {
           isPlaying: !isPlaying
@@ -101,13 +105,13 @@ const withPlayerSettings = (Component) => {
     }
   }
 
-  WithPlayerSettings.propTypes = {
+  WithPlayer.propTypes = {
     isPlaying: PropTypes.bool.isRequired,
     src: PropTypes.string.isRequired,
     onPlayButtonClick: PropTypes.func.isRequired
   };
 
-  return WithPlayerSettings;
+  return WithPlayer;
 };
 
-export default withPlayerSettings;
+export default withPlayer;

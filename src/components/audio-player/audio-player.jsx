@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const AudioPlayer = (props) => {
-  const {onPlayButtonClick, isLoading, isPlaying, reference} = props;
+  const {onPlayButtonClick, isLoading, isPlaying, children} = props;
 
   return (
     <>
@@ -14,9 +14,7 @@ const AudioPlayer = (props) => {
       >
       </button>
       <div className="track__status">
-        <audio
-          ref={reference}
-        ></audio>
+        {children}
       </div>
     </>
   );
@@ -26,7 +24,7 @@ AudioPlayer.propTypes = {
   isPlaying: PropTypes.bool.isRequired,
   onPlayButtonClick: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  reference: PropTypes.object.isRequired
+  children: PropTypes.object.isRequired
 };
 
 export default AudioPlayer;
