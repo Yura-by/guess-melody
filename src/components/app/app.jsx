@@ -1,12 +1,10 @@
-import React, {PureComponent} from 'react';
+import {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+// import {BrowserRouter, Route, Switch} from 'react-router-dom';
 // import GameScreen from '../game-screen/game-screen.jsx';
 import {connect} from 'react-redux';
 
 class App extends PureComponent {
-
-
   render() {
     const {renderScreen, step} = this.props;
     return renderScreen(step);

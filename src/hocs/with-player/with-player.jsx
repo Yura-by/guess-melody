@@ -1,8 +1,8 @@
-import React, {PureComponent, createRef} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 
-const withPlayer = (Component) => {
-  class WithPlayer extends PureComponent {
+const withPlayer = (NeededComponent) => {
+  class WithPlayer extends Component {
 
     constructor(props) {
       super(props);
@@ -24,7 +24,7 @@ const withPlayer = (Component) => {
 
     render() {
       const {isLoading, isPlaying} = this.state;
-      return <Component
+      return <NeededComponent
         {...this.props}
         isLoading={isLoading}
         isPlaying={isPlaying}
@@ -33,7 +33,7 @@ const withPlayer = (Component) => {
         <audio
           ref={this._audioRef}
         />
-      </Component>;
+      </NeededComponent>;
     }
 
     _buttonClickHandler() {
@@ -93,6 +93,21 @@ const withPlayer = (Component) => {
       audio.onpause = null;
       audio.ontimeupdate = null;
       audio.src = ``;
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+      if (nextState.progress !== this.state.progress) {
+        return false;
+      }
+
+      if (!this.state.isLoading && this.state.isPlaying === nextProps.isPlaying) {
+        return false;
+      }
+
+      if (nextProps !== this.props || nextState !== this.state) {
+        return true;
+      }
+      return false;
     }
 
     componentDidUpdate() {

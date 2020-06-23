@@ -75,10 +75,32 @@ const withScreenSwitch = (Component) => {
 
       const question = questions[step];
 
-      if (step === -1 || step >= questions.length) {
-
+      if (step === -2) {
         return (
-          <WelcomeScreen
+          <FailTime
+            onUserClick={onUserResetGame}
+          />
+        );
+      }
+
+      if (mistakes >= maxMistakes) {
+        // Временное решение, которое мы заменим в следущем модуле
+        // eslint-disable-next-line
+        if (window.confirm(`Слишком много ошибок!`)) {
+          onUserResetGame();
+        }
+        return null;
+      }
+
+      if (!question) {
+        if (step > questions.length - 1) {
+          // Временное решение, которое мы заменим в следущем модуле
+          // eslint-disable-next-line
+          window.alert(`Больше нет вопросов!`);
+          return null;
+        } else {
+
+          return <WelcomeScreen
             time={gameTime / 60}
             errorCount={maxMistakes}
             onStartButtonClick={
@@ -86,15 +108,8 @@ const withScreenSwitch = (Component) => {
                 onWelcomeScreenClick(gameTime, timerId, step, questions.length);
               }
             }
-          />);
-      }
-
-      if (step === -2) {
-        return (
-          <FailTime
-            onUserClick={onUserResetGame}
-          />
-        );
+          />;
+        }
       }
 
       if (question) {

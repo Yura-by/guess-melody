@@ -3,8 +3,8 @@ import questions from './mocks/questions.js';
 const initialState = {
   step: -1,
   mistakes: 0,
-  maxMistakes: 3,
-  gameTime: 100,
+  maxMistakes: 2,
+  gameTime: 120,
   currentTime: 0,
   questions,
   timerId: -1
@@ -24,9 +24,9 @@ const ActionCreator = {
     const nextStep = step + 1;
     if (nextStep >= questionsLength) {
       clearInterval(timerId);
-      return {
-        type: `RESET`
-      };
+      // return {
+      //   type: `RESET`
+      // };
     }
     return {
       type: `INCREMENT_STEP`,
@@ -72,10 +72,10 @@ const ActionCreator = {
 
     if (!isAnswerCorrect && mistakes + 1 >= maxMistakes) {
       clearInterval(timerId);
-      return {
-        type: `TIME_ENDED`,
-        payload: -2
-      };
+      // return {
+      //   type: `TIME_ENDED`,
+      //   payload: -2
+      // };
     }
 
     return {
