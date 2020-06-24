@@ -34,9 +34,11 @@ it(`GameGenre snapshot test`, () => {
     .create(<GameGenre
       question={mock}
       onAnswer={() => {}}
-      renderPlayer={
+      userAnswers={[]}
+      renderAnswer={
         () => <div></div>
       }
+      onChange={() => {}}
     />)
     .toJSON();
   expect(gameGenreTreee).toMatchSnapshot();

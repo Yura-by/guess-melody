@@ -8,12 +8,10 @@ it(`Snapshot test for AudioPlayer`, () => {
       src="https://web.archive.org/web/20060818144601/http://www.navyband.navy.mil/anthems/ANTHEMS/Belarus.mp3"
       isPlaying={false}
       onPlayButtonClick={() => {}}
-    />,
-    {
-      createNodeMock: () => {
-        return {};
-      }
-    })
+      isLoading={false}
+    >
+      <div></div>
+    </AudioPlayer>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

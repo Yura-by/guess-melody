@@ -24,7 +24,10 @@ AudioPlayer.propTypes = {
   isPlaying: PropTypes.bool.isRequired,
   onPlayButtonClick: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  children: PropTypes.object.isRequired
+  children: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object
+  ])
 };
 
 export default AudioPlayer;

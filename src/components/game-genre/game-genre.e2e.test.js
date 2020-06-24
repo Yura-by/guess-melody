@@ -41,7 +41,9 @@ it(`When users answer question is not sent`, () => {
   const tree = shallow(<GameGenre
     question={mock}
     onAnswer={onSubmitForm}
-    renderPlayer={renderPlayer}
+    userAnswers={[]}
+    renderAnswer={renderPlayer}
+    onChange={() => {}}
   />);
 
   const inputElement = tree.find(`.game__tracks`);
@@ -53,52 +55,112 @@ it(`When users answer question is not sent`, () => {
   expect(formSendPrevention).toHaveBeenCalledTimes(1);
 });
 
-it(`Rendered checkbox are synchronized with state`, () => {
+it(`RenderAnswer calls on rendering`, () => {
+
   const renderPlayer = jest.fn();
 
   const onSubmitForm = jest.fn();
-  const tree = shallow(<GameGenre
+  shallow(<GameGenre
     question={mock}
     onAnswer={onSubmitForm}
-    renderPlayer={renderPlayer}
+    userAnswers={[]}
+    renderAnswer={renderPlayer}
+    onChange={() => {}}
   />);
 
-  expect(tree.state(`userAnswers`)).toEqual([false, false, false, false]);
-
-  const inputs = tree.find(`input`);
-  const firstInput = inputs.at(0);
-  const secondInput = inputs.at(1);
-
-  firstInput.simulate(`change`);
-
-  expect(tree.state(`userAnswers`)).toEqual([true, false, false, false]);
-
-  firstInput.simulate(`change`);
-  expect(tree.state(`userAnswers`)).toEqual([false, false, false, false]);
-
-  secondInput.simulate(`change`);
-  expect(tree.state(`userAnswers`)).toEqual([false, true, false, false]);
-
+  expect(renderPlayer).toHaveBeenCalledTimes(4);
+  expect(renderPlayer).toHaveBeenNthCalledWith(1, mock.answers[0], 0);
+  expect(renderPlayer).toHaveBeenNthCalledWith(2, mock.answers[1], 1);
+  expect(renderPlayer).toHaveBeenNthCalledWith(3, mock.answers[2], 2);
+  expect(renderPlayer).toHaveBeenNthCalledWith(4, mock.answers[3], 3);
 });
 
-it(`User answer passed to callback is consistent with internal component state`, () => {
-  const renderPlayer = jest.fn();
+it(`When user answers to pass answers`, () => {
 
   const onSubmitForm = jest.fn();
   const tree = shallow(<GameGenre
     question={mock}
     onAnswer={onSubmitForm}
-    renderPlayer={renderPlayer}
+    userAnswers={[false, true, true, false]}
+    renderAnswer={jest.fn()}
+    onChange={jest.fn()}
   />);
 
-  const inputs = tree.find(`input`);
-  const thirdInput = inputs.at(2);
-  thirdInput.simulate(`change`);
   const form = tree.find(`form`);
   form.simulate(`submit`, {preventDefault() {}});
-  expect(tree.state(`userAnswers`)).toEqual([false, false, true, false]);
-  expect(onSubmitForm).toHaveBeenCalledTimes(1);
-  expect(onSubmitForm).toHaveBeenNthCalledWith(1, [false, false, true, false]);
-
-  expect(tree.find(`input`).map((it) => it.prop(`checked`))).toEqual([false, false, true, false]);
+  expect(onSubmitForm).toHaveBeenNthCalledWith(1, [false, true, true, false]);
 });
+
+it(`When user changes calls onChange`, () => {
+
+  const onChange = jest.fn();
+  const tree = shallow(<GameGenre
+    question={mock}
+    onAnswer={jest.fn()}
+    userAnswers={[false, true, true, false]}
+    renderAnswer={jest.fn()}
+    onChange={onChange}
+  />);
+
+  const inputs = tree.find(`input`);
+  const firstInput = inputs.at(1);
+  const secondInput = inputs.at(2);
+  const thirdInput = inputs.at(3);
+  firstInput.simulate(`change`);
+  secondInput.simulate(`change`);
+  thirdInput.simulate(`change`);
+
+  expect(onChange).toHaveBeenNthCalledWith(1, 1);
+  expect(onChange).toHaveBeenNthCalledWith(2, 2);
+  expect(onChange).toHaveBeenNthCalledWith(3, 3);
+});
+
+// it(`Rendered checkbox are synchronized with state`, () => {
+//   const renderPlayer = jest.fn();
+
+//   const onSubmitForm = jest.fn();
+//   const tree = shallow(<GameGenre
+//     question={mock}
+//     onAnswer={onSubmitForm}
+//     renderPlayer={renderPlayer}
+//   />);
+
+//   expect(tree.state(`userAnswers`)).toEqual([false, false, false, false]);
+
+//   const inputs = tree.find(`input`);
+//   const firstInput = inputs.at(0);
+//   const secondInput = inputs.at(1);
+
+//   firstInput.simulate(`change`);
+
+//   expect(tree.state(`userAnswers`)).toEqual([true, false, false, false]);
+
+//   firstInput.simulate(`change`);
+//   expect(tree.state(`userAnswers`)).toEqual([false, false, false, false]);
+
+//   secondInput.simulate(`change`);
+//   expect(tree.state(`userAnswers`)).toEqual([false, true, false, false]);
+
+// });
+
+// it(`User answer passed to callback is consistent with internal component state`, () => {
+//   const renderPlayer = jest.fn();
+
+//   const onSubmitForm = jest.fn();
+//   const tree = shallow(<GameGenre
+//     question={mock}
+//     onAnswer={onSubmitForm}
+//     renderPlayer={renderPlayer}
+//   />);
+
+//   const inputs = tree.find(`input`);
+//   const thirdInput = inputs.at(2);
+//   thirdInput.simulate(`change`);
+//   const form = tree.find(`form`);
+//   form.simulate(`submit`, {preventDefault() {}});
+//   expect(tree.state(`userAnswers`)).toEqual([false, false, true, false]);
+//   expect(onSubmitForm).toHaveBeenCalledTimes(1);
+//   expect(onSubmitForm).toHaveBeenNthCalledWith(1, [false, false, true, false]);
+
+//   expect(tree.find(`input`).map((it) => it.prop(`checked`))).toEqual([false, false, true, false]);
+// });

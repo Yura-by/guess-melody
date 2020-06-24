@@ -36,10 +36,10 @@ App.propTypes = {
   step: PropTypes.number.isRequired
 };
 
-const mapStateToProps = (state, ownProps) => {
-  return Object.assign({}, ownProps, {
-    step: state.step,
-  });
+const mapStateToProps = (state) => {
+  return {
+    step: state.step
+  };
 };
 
 export {App};

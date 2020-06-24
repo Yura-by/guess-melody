@@ -32,13 +32,8 @@ it(`GameArtist snaphot test`, () => {
     .create(<GameArtist
       question={mock}
       onAnswer={() => {}}
-      renderPlayer={jest.fn()}
-    />,
-    {
-      createNodeMock: () => {
-        return {};
-      }
-    })
+      renderQuestion={jest.fn()}
+    />)
     .toJSON();
 
   expect(gameArtistTree).toMatchSnapshot();

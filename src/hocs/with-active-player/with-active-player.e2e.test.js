@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Enzyme, {mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import withAudioPlayer from './with-active-player.jsx';
+import withActivePlayer from './with-active-player.jsx';
 
 Enzyme.configure({adapter: new Adapter()});
 
@@ -24,7 +24,7 @@ MockComponent.propTypes = {
   renderPlayer: PropTypes.func.isRequired
 };
 
-const MockComponentWrapped = withAudioPlayer(MockComponent);
+const MockComponentWrapped = withActivePlayer(MockComponent);
 
 it(`Paused by default`, () => {
   const tree = mount(<MockComponentWrapped

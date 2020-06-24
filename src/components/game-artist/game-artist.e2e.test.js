@@ -36,10 +36,11 @@ const mockEvent = {
 
 it(`On change gets called with the right arguments`, () => {
   const onUserAnswer = jest.fn();
+  const renderQuestion = jest.fn();
   const tree = shallow(<GameArtist
     question={mock}
     onAnswer={onUserAnswer}
-    renderPlayer={jest.fn()}
+    renderQuestion={renderQuestion}
   />);
 
   const answerInputs = tree.find(`.artist__input`);
@@ -50,6 +51,10 @@ it(`On change gets called with the right arguments`, () => {
   firstAnswer.simulate(`click`, mockEvent);
   secondAnswer.simulate(`click`, mockEvent);
   thirdAnswer.simulate(`click`, mockEvent);
+
+  expect(renderQuestion).toHaveBeenCalledTimes(1);
+  expect(renderQuestion).toHaveBeenNthCalledWith(1, mock.song, 0);
+
 
   expect(onUserAnswer).toHaveBeenCalledTimes(3);
 
