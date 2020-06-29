@@ -1,4 +1,4 @@
-import questions from './mocks/questions.js';
+// import questions from './mocks/questions.js';
 
 const initialState = {
   step: -1,
@@ -6,8 +6,9 @@ const initialState = {
   maxMistakes: 2,
   gameTime: 120,
   currentTime: 0,
-  questions,
-  timerId: -1
+  questions: [],
+  timerId: -1,
+  isRequireAuthorization: false
 };
 
 
@@ -82,6 +83,20 @@ const ActionCreator = {
       type: `INCREMENT_MISTAKES`,
       payload: isAnswerCorrect ? 0 : 1
     };
+  },
+
+  requireAutorization: (isAutorization) => {
+    return {
+      type: `IS_REQUIRE_AUTHORIZATION`,
+      payload: isAutorization
+    };
+  },
+
+  addQuestions: (questions) => {
+    return {
+      type: `ADD_QUIETIONS`,
+      payload: questions
+    };
   }
 };
 
@@ -108,6 +123,10 @@ const reducer = (state = initialState, action) => {
     case `SET_TIMER_ID`:
       return Object.assign({}, state, {
         timerId: action.payload
+      });
+    case `IS_REQUIRE_AUTHORIZATION`:
+      return Object.assign({}, state, {
+        isRequireAuthorization: action.payload
       });
   }
 

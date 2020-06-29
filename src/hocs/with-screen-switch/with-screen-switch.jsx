@@ -8,6 +8,7 @@ import GameGenre from '../../components/game-genre/game-genre.jsx';
 import GameArtist from '../../components/game-artist/game-artist.jsx';
 import GameScreen from '../../components/game-screen/game-screen.jsx';
 import FailTime from '../../components/fail-time/fail-time.jsx';
+import AuthorizationScreen from '../../components/authorization-screen/authorization-screen.jsx';
 
 import {ActionCreator} from '../../reducer.js';
 
@@ -70,10 +71,15 @@ const withScreenSwitch = (Component) => {
         onWelcomeScreenClick,
         onUserAnswer,
         onUserResetGame,
-        timerId
+        timerId,
+        isRequireAuthorization
       } = this.props;
 
       const question = questions[step];
+
+      if (isRequireAuthorization) {
+        return <AuthorizationScreen />
+      }
 
       if (step === -2) {
         return (
@@ -157,7 +163,9 @@ const withScreenSwitch = (Component) => {
     onUserAnswer: PropTypes.func.isRequired,
     questions: PropTypes.array.isRequired,
     onUserResetGame: PropTypes.func,
-    timerId: PropTypes.number.isRequired
+    timerId: PropTypes.number.isRequired,
+    isRequireAuthorization: PropTypes.bool.isRequired
+
   };
 
   return WithScreenSwitch;
@@ -171,6 +179,7 @@ const mapStateToProps = (state, ownProps) => {
     questions: state.questions,
     maxMistakes: state.maxMistakes,
     timerId: state.timerId,
+    isRequireAuthorization: state.isRequireAuthorization
   });
 };
 
