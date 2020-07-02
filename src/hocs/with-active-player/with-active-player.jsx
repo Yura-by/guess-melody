@@ -1,4 +1,5 @@
 import React, {PureComponent} from 'react';
+import PropTypes from 'prop-types';
 import AudioPlayer from '../../components/audio-player/audio-player.jsx';
 import withPlayer from '../../hocs/with-player/with-player.jsx';
 
@@ -24,6 +25,12 @@ const withActivePlayer = (Component) => {
       });
     }
 
+    componentDidUpdate(prevProps) {
+      if (prevProps.question !== this.props.question) {
+        this.setState({activePlayer: -1});
+      }
+    }
+
     render() {
       const {activePlayer} = this.state;
       return <Component
@@ -42,7 +49,7 @@ const withActivePlayer = (Component) => {
     }
   }
 
-  WithActivePlayer.propTypes = {};
+  WithActivePlayer.propTypes = {question: PropTypes.object.isRequired};
 
   return WithActivePlayer;
 };

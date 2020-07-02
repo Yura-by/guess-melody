@@ -15,6 +15,15 @@ const withUserAnswer = (Component) => {
       this._answersSubmitHandler = this._answersSubmitHandler.bind(this);
     }
 
+    componentDidUpdate(prevProps) {
+      const {question: {answers}, question} = this.props;
+      if (prevProps.question !== question) {
+        this.setState({
+          userAnswers: new Array(answers.length).fill(false)
+        });
+      }
+    }
+
     _answersChangeHandler(index) {
       this.setState((prevState) => {
         const newAnswers = [...prevState.userAnswers];

@@ -1,10 +1,11 @@
 // import questions from './mocks/questions.js';
+import adapterForQuestions from './adapter-for-questions/adapter-for-questions.js';
 
 const initialState = {
   step: -1,
   mistakes: 0,
-  maxMistakes: 2,
-  gameTime: 120,
+  maxMistakes: 9,
+  gameTime: 1200,
   currentTime: 0,
   questions: [],
   timerId: -1,
@@ -100,6 +101,15 @@ const ActionCreator = {
   }
 };
 
+const Operation = {
+  loadQuestions: () => (dispatch, getState, api) => {
+    return api.get(`/questions`)
+      .then((response) => {
+        return dispatch(ActionCreator.addQuestions(adapterForQuestions(response.data)));
+      });
+  }
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case `INCREMENT_STEP`:
@@ -128,9 +138,13 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         isRequireAuthorization: action.payload
       });
+    case `ADD_QUIETIONS`:
+      return Object.assign({}, state, {
+        questions: action.payload
+      });
   }
 
   return state;
 };
 
-export {reducer, isArtistAnswerCorrect, isGenreAnswerCorrect, ActionCreator};
+export {reducer, isArtistAnswerCorrect, isGenreAnswerCorrect, ActionCreator, Operation};

@@ -51,7 +51,6 @@ const withScreenSwitch = (Component) => {
 
     constructor(props) {
       super(props);
-
       this._getScreen = this._getScreen.bind(this);
     }
 
@@ -78,7 +77,7 @@ const withScreenSwitch = (Component) => {
       const question = questions[step];
 
       if (isRequireAuthorization) {
-        return <AuthorizationScreen />
+        return <AuthorizationScreen />;
       }
 
       if (step === -2) {

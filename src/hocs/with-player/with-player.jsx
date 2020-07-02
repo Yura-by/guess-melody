@@ -100,18 +100,20 @@ const withPlayer = (NeededComponent) => {
         return false;
       }
 
-      if (!this.state.isLoading && this.state.isPlaying === nextProps.isPlaying) {
-        return false;
-      }
-
-      if (nextProps !== this.props || nextState !== this.state) {
-        return true;
-      }
-      return false;
+      return true;
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
       const audio = this._audioRef.current;
+      if (prevProps.src !== this.props.src) {
+        audio.pause();
+        audio.src = this.props.src;
+        this.setState({
+          isLoading: true,
+          isPlaying: false,
+        });
+        return;
+      }
       if (this.props.isPlaying) {
         audio.play();
       } else {
