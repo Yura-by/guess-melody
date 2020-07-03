@@ -5,21 +5,24 @@ import {Provider} from 'react-redux';
 import App from './components/app/app.jsx';
 import {reducer, Operation} from './reducer.js';
 import withScreenSwitch from './hocs/with-screen-switch/with-screen-switch.jsx';
-import {compose} from 'recompose';
 import thunk from 'redux-thunk';
 import createAPI from './api.js';
+import {composeWithDevTools} from 'redux-devtools-extension';
 
 const AppWrapped = withScreenSwitch(App);
 
 const init = () => {
   const api = createAPI((...args) => store.dispatch(...args));
   const store = createStore(reducer,
-      compose(
-          applyMiddleware(thunk.withExtraArgument(api)),
-          window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f)
+      composeWithDevTools(
+          applyMiddleware(thunk.withExtraArgument(api))
+      )
   );
 
   store.dispatch(Operation.loadQuestions());
+
+  store.dispatch(Operation.checkAuth());
+
   ReactDOM.render(<Provider store={store}>
     <AppWrapped
     />

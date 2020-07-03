@@ -9,7 +9,8 @@ const initialState = {
   currentTime: 0,
   questions: [],
   timerId: -1,
-  isRequireAuthorization: false
+  isRequireAuthorization: true,
+  userData: {}
 };
 
 
@@ -98,6 +99,13 @@ const ActionCreator = {
       type: `ADD_QUIETIONS`,
       payload: questions
     };
+  },
+
+  loadUserData: (userData) => {
+    return {
+      type: `ADD_USER_DATA`,
+      payload: userData
+    };
   }
 };
 
@@ -106,6 +114,31 @@ const Operation = {
     return api.get(`/questions`)
       .then((response) => {
         return dispatch(ActionCreator.addQuestions(adapterForQuestions(response.data)));
+      });
+  },
+
+  checkAuth: () => (dispatch, getState, api) => {
+    return api.get(`/login`)
+      .then((response) => {
+        dispatch(ActionCreator.requireAutorization(false));
+        dispatch(ActionCreator.loadUserData(response.data));
+        return response;
+      });
+  },
+
+  login: (authData) => (dispatch, getState, api) => {
+    const {email, password} = authData;
+    api.post(`/login`, {
+      email,
+      password
+    })
+      .then((response) => {
+        dispatch(ActionCreator.loadUserData(response));
+      })
+      .catch((err) => {
+        if (err.status === 400) {
+          console.log('answer 400');
+        }
       });
   }
 };
@@ -141,6 +174,10 @@ const reducer = (state = initialState, action) => {
     case `ADD_QUIETIONS`:
       return Object.assign({}, state, {
         questions: action.payload
+      });
+    case `ADD_USER_DATA`:
+      return Object.assign({}, state, {
+        userData: action.payload
       });
   }
 

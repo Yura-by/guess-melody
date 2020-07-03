@@ -170,8 +170,8 @@ const withScreenSwitch = (Component) => {
   return WithScreenSwitch;
 };
 
-const mapStateToProps = (state, ownProps) => {
-  return Object.assign({}, ownProps, {
+const mapStateToProps = (state) => {
+  return {
     step: state.step,
     mistakes: state.mistakes,
     gameTime: state.gameTime,
@@ -179,7 +179,7 @@ const mapStateToProps = (state, ownProps) => {
     maxMistakes: state.maxMistakes,
     timerId: state.timerId,
     isRequireAuthorization: state.isRequireAuthorization
-  });
+  };
 };
 
 const mapDispatchToProps = (dispatch) => ({

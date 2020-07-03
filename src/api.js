@@ -13,9 +13,11 @@ const createAPI = (dispatch) => {
   const onFail = (err) => {
     if (err.response.status === 403) {
       dispatch(ActionCreator.requireAutorization(true));
+
+      throw err;
     }
 
-    return err;
+    throw err;
   };
 
   api.interceptors.response.use(onSuccess, onFail);
