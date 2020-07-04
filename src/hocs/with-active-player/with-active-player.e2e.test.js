@@ -6,6 +6,10 @@ import withActivePlayer from './with-active-player.jsx';
 
 Enzyme.configure({adapter: new Adapter()});
 
+const mock = {
+  id: 3
+};
+
 const MockComponent = (props) => {
   const {answers, renderPlayer} = props;
   return <div>
@@ -28,6 +32,7 @@ const MockComponentWrapped = withActivePlayer(MockComponent);
 
 it(`Paused by default`, () => {
   const tree = mount(<MockComponentWrapped
+    question={mock}
     answers={mockAnswers}
   />);
 
@@ -40,6 +45,7 @@ it(`Active player changes correctly`, () => {
   global.window.HTMLMediaElement.prototype.play = () => {};
 
   const tree = mount(<MockComponentWrapped
+    question={mock}
     answers={mockAnswers}
   />);
 

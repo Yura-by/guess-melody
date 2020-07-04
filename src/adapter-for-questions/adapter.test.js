@@ -59,24 +59,3 @@ it(`Adapter correct add Id to each answer`, () => {
     id: expect.any(Number)
   }));
 });
-
-  // expect.arrayContaining(expect.objectContaining({
-  //   src: expect.any(String),
-  //   genre: expect.any(String),
-  //   id: expect.any(Number)
-
-//   expect(mock[0]).toEqual(expect.objectContaining({
-//       type: expect.any(String),
-//       genre: expect.any(String),
-//       answers: expect.arrayOf(expect.objectContaining({
-//         src: expect.any(String),
-//         genre: expect.any(String),
-//       }))
-//     }));
-// });
-
-// expect.arrayContaining({
-//   src: expect.any(String),
-//   genre: expect.any(String),
-//   id: expect.any(Number)
-// })

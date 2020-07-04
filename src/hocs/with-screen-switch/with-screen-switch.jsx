@@ -9,8 +9,10 @@ import GameArtist from '../../components/game-artist/game-artist.jsx';
 import GameScreen from '../../components/game-screen/game-screen.jsx';
 import FailTime from '../../components/fail-time/fail-time.jsx';
 import AuthorizationScreen from '../../components/authorization-screen/authorization-screen.jsx';
+import WinScreen from '../../components/win-screen/win-screen.jsx';
+import GameOver from '../../components/game-over/game-over.jsx';
 
-import {ActionCreator} from '../../reducer.js';
+import {ActionCreator, Operation} from '../../reducer.js';
 
 import Timer from '../../timer.js';
 
@@ -71,13 +73,19 @@ const withScreenSwitch = (Component) => {
         onUserAnswer,
         onUserResetGame,
         timerId,
-        isRequireAuthorization
+        isRequireAuthorization,
+        onUserLogin,
+        badLoginData,
+        currentTime
       } = this.props;
 
       const question = questions[step];
 
       if (isRequireAuthorization) {
-        return <AuthorizationScreen />;
+        return <AuthorizationScreen
+          onAuthFormSubmit={onUserLogin}
+          badLoginData={badLoginData ? true : false}
+        />;
       }
 
       if (step === -2) {
@@ -89,20 +97,18 @@ const withScreenSwitch = (Component) => {
       }
 
       if (mistakes >= maxMistakes) {
-        // Временное решение, которое мы заменим в следущем модуле
-        // eslint-disable-next-line
-        if (window.confirm(`Слишком много ошибок!`)) {
-          onUserResetGame();
-        }
-        return null;
+        return <GameOver
+          onResetGame={onUserResetGame}
+        />;
       }
 
       if (!question) {
         if (step > questions.length - 1) {
-          // Временное решение, которое мы заменим в следущем модуле
-          // eslint-disable-next-line
-          window.alert(`Больше нет вопросов!`);
-          return null;
+          return <WinScreen
+            gameTime={gameTime}
+            currentTime={currentTime}
+            mistakes={mistakes}
+          />;
         } else {
 
           return <WelcomeScreen
@@ -163,8 +169,10 @@ const withScreenSwitch = (Component) => {
     questions: PropTypes.array.isRequired,
     onUserResetGame: PropTypes.func,
     timerId: PropTypes.number.isRequired,
-    isRequireAuthorization: PropTypes.bool.isRequired
-
+    isRequireAuthorization: PropTypes.bool.isRequired,
+    onUserLogin: PropTypes.func.isRequired,
+    badLoginData: PropTypes.bool.isRequired,
+    currentTime: PropTypes.number.isRequired
   };
 
   return WithScreenSwitch;
@@ -178,7 +186,9 @@ const mapStateToProps = (state) => {
     questions: state.questions,
     maxMistakes: state.maxMistakes,
     timerId: state.timerId,
-    isRequireAuthorization: state.isRequireAuthorization
+    isRequireAuthorization: state.isRequireAuthorization,
+    badLoginData: state.badLoginData,
+    currentTime: state.currentTime
   };
 };
 
@@ -204,6 +214,10 @@ const mapDispatchToProps = (dispatch) => ({
 
   onUserResetGame: () => {
     dispatch(ActionCreator.resetGame());
+  },
+
+  onUserLogin(userData) {
+    dispatch(Operation.login(userData));
   }
 });
 

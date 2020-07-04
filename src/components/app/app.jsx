@@ -34,13 +34,15 @@ class App extends PureComponent {
 App.propTypes = {
   renderScreen: PropTypes.func.isRequired,
   step: PropTypes.number.isRequired,
-  isRequireAuthorization: PropTypes.bool.isRequired
+  isRequireAuthorization: PropTypes.bool.isRequired,
+  badLoginData: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => {
   return {
     step: state.step,
-    isRequireAuthorization: state.isRequireAuthorization
+    isRequireAuthorization: state.isRequireAuthorization,
+    badLoginData: state.badLoginData
   };
 };
 

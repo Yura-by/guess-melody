@@ -4,13 +4,23 @@ import adapterForQuestions from './adapter-for-questions/adapter-for-questions.j
 const initialState = {
   step: -1,
   mistakes: 0,
-  maxMistakes: 9,
-  gameTime: 1200,
+  maxMistakes: 2,
+  gameTime: 40,
   currentTime: 0,
   questions: [],
   timerId: -1,
   isRequireAuthorization: true,
-  userData: {}
+  userData: {},
+  badLoginData: false
+};
+
+const resetState = {
+  step: -1,
+  mistakes: 0,
+  currentTime: 0,
+  timerId: -1,
+  isRequireAuthorization: false,
+  badLoginData: false
 };
 
 
@@ -59,7 +69,8 @@ const ActionCreator = {
   },
 
   resetGame: () => ({
-    type: `RESET`
+    type: `RESET`,
+    payload: resetState
   }),
 
   incrementMistake: (userAnswer, question, mistakes, maxMistakes, timerId) => {
@@ -106,6 +117,13 @@ const ActionCreator = {
       type: `ADD_USER_DATA`,
       payload: userData
     };
+  },
+
+  badLoginData: (isBad) => {
+    return {
+      type: `BAD_LOGIN_DATA`,
+      payload: isBad
+    };
   }
 };
 
@@ -133,11 +151,13 @@ const Operation = {
       password
     })
       .then((response) => {
-        dispatch(ActionCreator.loadUserData(response));
+        dispatch(ActionCreator.loadUserData(response.data));
+        dispatch(ActionCreator.badLoginData(false));
+        dispatch(ActionCreator.requireAutorization(false));
       })
       .catch((err) => {
-        if (err.status === 400) {
-          console.log('answer 400');
+        if (err.response.status === 400) {
+          dispatch(ActionCreator.badLoginData(true));
         }
       });
   }
@@ -154,7 +174,7 @@ const reducer = (state = initialState, action) => {
         mistakes: state.mistakes + action.payload
       });
     case `RESET`:
-      return Object.assign({}, initialState);
+      return Object.assign({}, state, action.payload);
     case `REDUCE_TIME`:
       return Object.assign({}, state, {
         currentTime: action.payload
@@ -178,6 +198,10 @@ const reducer = (state = initialState, action) => {
     case `ADD_USER_DATA`:
       return Object.assign({}, state, {
         userData: action.payload
+      });
+    case `BAD_LOGIN_DATA`:
+      return Object.assign({}, state, {
+        badLoginData: action.payload
       });
   }
 
