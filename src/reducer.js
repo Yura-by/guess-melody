@@ -146,7 +146,7 @@ const Operation = {
 
   login: (authData) => (dispatch, getState, api) => {
     const {email, password} = authData;
-    api.post(`/login`, {
+    return api.post(`/login`, {
       email,
       password
     })

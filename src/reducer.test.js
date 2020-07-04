@@ -673,33 +673,26 @@ describe(`Operation work correctly`, () => {
     const apiMock = new MockAdapter(api);
 
     apiMock
-      .onPost(`/login`, mockData)
+      .onPost(`/login`)
       .reply(200, [{fake: true}]);
 
     return Operation.login(mockData)(dispatch, jest.fn(), api)
-      .then();
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(3);
 
-    // return Operation.login(mockData)(dispatch, jest.fn(), api)
-    //   .then(() => {
-    //     expect(dispatch).toHaveBeenCalledTimes(3);
-
-    //     expect(dispatch).toHaveBeenNthCalledWith(1, {
-    //       payload: [{fake: true}],
-    //       type: `ADD_USER_DATA`
-    //     });
-    //     expect(dispatch).toHaveBeenNthCalledWith(2, {
-    //       payload: false,
-    //       type: `BAD_LOGIN_DATA`
-    //     });
-    //     expect(dispatch).toHaveBeenNthCalledWith(3, {
-    //       payload: false,
-    //       type: `IS_REQUIRE_AUTHORIZATION`
-    //     });
-    //   }
-    //   );
-
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          payload: [{fake: true}],
+          type: `ADD_USER_DATA`
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
+          payload: false,
+          type: `BAD_LOGIN_DATA`
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(3, {
+          payload: false,
+          type: `IS_REQUIRE_AUTHORIZATION`
+        });
+      }
+      );
   });
-
-
-
 });
