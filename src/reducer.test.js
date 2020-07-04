@@ -661,7 +661,7 @@ describe(`Operation work correctly`, () => {
       );
   });
 
-  it(`login works correctly`, () => {
+  it(`login works correctly when answer 200`, () => {
     const dispatch = jest.fn();
     const api = createApi(dispatch);
 
@@ -692,6 +692,34 @@ describe(`Operation work correctly`, () => {
           payload: false,
           type: `IS_REQUIRE_AUTHORIZATION`
         });
+      }
+      );
+  });
+
+  it(`login works correctly when answer 400`, () => {
+    const dispatch = jest.fn();
+    const api = createApi(dispatch);
+
+    const mockData = {
+      email: `www`,
+      password: `ooo`
+    };
+
+    const apiMock = new MockAdapter(api);
+
+    apiMock
+      .onPost(`/login`)
+      .reply(400);
+
+    return Operation.login(mockData)(dispatch, jest.fn(), api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          payload: true,
+          type: `BAD_LOGIN_DATA`
+        });
+
       }
       );
   });
