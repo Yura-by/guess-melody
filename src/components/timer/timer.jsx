@@ -2,6 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
+import {getCurrentTime} from '../../reducer/game/selectors.js';
+
 const correctTime = (value) => {
   if (value / 10 >= 1) {
     return value;
@@ -24,7 +26,7 @@ const Timer = ({currentTime}) => {
 
 const mapStateToProps = (state) => {
   return {
-    currentTime: state.currentTime
+    currentTime: getCurrentTime(state)
   };
 };
 

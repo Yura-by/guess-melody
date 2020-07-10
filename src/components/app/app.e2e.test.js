@@ -11,7 +11,7 @@ it(`App calls render function`, () => {
   shallow(<App
     renderScreen={mockFunc}
     step={1500}
-    badLoginData={false}
+    isBadLoginData={false}
     isRequireAuthorization={false}
   />);
 

@@ -33,7 +33,7 @@ class AuthorizationScreen extends PureComponent {
   }
 
   render() {
-    const {badLoginData} = this.props;
+    const {isBadLoginData} = this.props;
     const {email, password} = this.state;
     return (
       <section className="login">
@@ -59,7 +59,7 @@ class AuthorizationScreen extends PureComponent {
               onChange={this._passwordChangeHandler}
               className="login__input" type="text" name="password" id="password" />
             <span
-              style={badLoginData ? {display: `flex`, position: `absolute`, top: `50px`, left: `50px`} : {}}
+              style={isBadLoginData ? {display: `flex`, position: `absolute`, top: `50px`, left: `50px`} : {}}
               className="login__error">Неверный пароль или неверная почта</span>
           </p>
           <button className="login__button button" type="submit">Войти</button>
@@ -72,7 +72,7 @@ class AuthorizationScreen extends PureComponent {
 
 AuthorizationScreen.propTypes = {
   onAuthFormSubmit: PropTypes.func.isRequired,
-  badLoginData: PropTypes.bool.isRequired
+  isBadLoginData: PropTypes.bool.isRequired
 };
 
 

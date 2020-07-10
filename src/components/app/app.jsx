@@ -4,6 +4,10 @@ import PropTypes from 'prop-types';
 // import GameScreen from '../game-screen/game-screen.jsx';
 import {connect} from 'react-redux';
 
+import {getStep} from '../../reducer/game/selectors.js';
+import {getIsRequireAuthorization, getIsBadLoginData} from '../../reducer/user/selectors.js';
+
+
 class App extends PureComponent {
   render() {
     const {renderScreen, step} = this.props;
@@ -35,14 +39,14 @@ App.propTypes = {
   renderScreen: PropTypes.func.isRequired,
   step: PropTypes.number.isRequired,
   isRequireAuthorization: PropTypes.bool.isRequired,
-  badLoginData: PropTypes.bool.isRequired
+  isBadLoginData: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => {
   return {
-    step: state.step,
-    isRequireAuthorization: state.isRequireAuthorization,
-    badLoginData: state.badLoginData
+    step: getStep(state),
+    isRequireAuthorization: getIsRequireAuthorization(state),
+    isBadLoginData: getIsBadLoginData(state)
   };
 };
 

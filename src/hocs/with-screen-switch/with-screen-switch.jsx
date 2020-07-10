@@ -3,6 +3,15 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {compose} from 'recompose';
 
+import {getStep, getMistakes, getGameTime, getMaxMistakes, getTimerId, getCurrentTime} from '../../reducer/game/selectors.js';
+import {getQuestions} from '../../reducer/data/selectors.js';
+import {getIsRequireAuthorization, getIsBadLoginData} from '../../reducer/user/selectors.js';
+
+import {ActionCreator as GameActionCreator} from '../../reducer/game/game.js';
+import {ActionCreator as UserActionCreator} from '../../reducer/user/user.js';
+
+import {Operation as UserOperation} from '../../reducer/user/user.js';
+
 import WelcomeScreen from '../../components/welcome-screen/welcome-screen.jsx';
 import GameGenre from '../../components/game-genre/game-genre.jsx';
 import GameArtist from '../../components/game-artist/game-artist.jsx';
@@ -11,8 +20,6 @@ import FailTime from '../../components/fail-time/fail-time.jsx';
 import AuthorizationScreen from '../../components/authorization-screen/authorization-screen.jsx';
 import WinScreen from '../../components/win-screen/win-screen.jsx';
 import GameOver from '../../components/game-over/game-over.jsx';
-
-import {ActionCreator, Operation} from '../../reducer.js';
 
 import Timer from '../../timer.js';
 
@@ -75,7 +82,7 @@ const withScreenSwitch = (Component) => {
         timerId,
         isRequireAuthorization,
         onUserLogin,
-        badLoginData,
+        isBadLoginData,
         currentTime
       } = this.props;
 
@@ -84,7 +91,7 @@ const withScreenSwitch = (Component) => {
       if (isRequireAuthorization) {
         return <AuthorizationScreen
           onAuthFormSubmit={onUserLogin}
-          badLoginData={badLoginData ? true : false}
+          isBadLoginData={isBadLoginData ? true : false}
         />;
       }
 
@@ -108,6 +115,7 @@ const withScreenSwitch = (Component) => {
             gameTime={gameTime}
             currentTime={currentTime}
             mistakes={mistakes}
+            onResetGame={onUserResetGame}
           />;
         } else {
 
@@ -171,7 +179,7 @@ const withScreenSwitch = (Component) => {
     timerId: PropTypes.number.isRequired,
     isRequireAuthorization: PropTypes.bool.isRequired,
     onUserLogin: PropTypes.func.isRequired,
-    badLoginData: PropTypes.bool.isRequired,
+    isBadLoginData: PropTypes.bool.isRequired,
     currentTime: PropTypes.number.isRequired
   };
 
@@ -180,44 +188,45 @@ const withScreenSwitch = (Component) => {
 
 const mapStateToProps = (state) => {
   return {
-    step: state.step,
-    mistakes: state.mistakes,
-    gameTime: state.gameTime,
-    questions: state.questions,
-    maxMistakes: state.maxMistakes,
-    timerId: state.timerId,
-    isRequireAuthorization: state.isRequireAuthorization,
-    badLoginData: state.badLoginData,
-    currentTime: state.currentTime
+    step: getStep(state),
+    mistakes: getMistakes(state),
+    gameTime: getGameTime(state),
+    questions: getQuestions(state),
+    maxMistakes: getMaxMistakes(state),
+    timerId: getTimerId(state),
+    isRequireAuthorization: getIsRequireAuthorization(state),
+    isBadLoginData: getIsBadLoginData(state),
+    currentTime: getCurrentTime(state)
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
   onWelcomeScreenClick: (gameTime, currentTimerId, step, questionsLength) => {
-    dispatch(ActionCreator.incrementStep(step, currentTimerId, questionsLength));
+    dispatch(GameActionCreator.incrementStep(step, currentTimerId, questionsLength));
     const timer = new Timer(gameTime, () => {
       clearInterval(timerID);
-      dispatch(ActionCreator.timeEnded());
+      dispatch(GameActionCreator.timeEnded());
     });
 
     let timerID = setInterval(() => {
       timer.tick();
-      dispatch(ActionCreator.reduceTime(timer.getLastTime()));
+      dispatch(GameActionCreator.reduceTime(timer.getLastTime()));
     }, 1000);
-    dispatch(ActionCreator.setTimerId(timerID));
+    dispatch(GameActionCreator.setTimerId(timerID));
   },
 
   onUserAnswer: (userAnswer, question, mistakes, maxMistakes, step, timerId, questionsLength) => {
-    dispatch(ActionCreator.incrementMistake(userAnswer, question, mistakes, maxMistakes, timerId));
-    dispatch(ActionCreator.incrementStep(step, timerId, questionsLength));
+    dispatch(GameActionCreator.incrementMistake(userAnswer, question, mistakes, maxMistakes, timerId));
+    dispatch(GameActionCreator.incrementStep(step, timerId, questionsLength));
   },
 
   onUserResetGame: () => {
-    dispatch(ActionCreator.resetGame());
+    dispatch(GameActionCreator.resetGame());
+    dispatch(UserActionCreator.resetData());
   },
 
   onUserLogin(userData) {
-    dispatch(Operation.login(userData));
+    dispatch(UserOperation.login(userData));
   }
 });
 

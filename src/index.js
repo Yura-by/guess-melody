@@ -3,11 +3,14 @@ import ReactDOM from 'react-dom';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import App from './components/app/app.jsx';
-import {reducer, Operation} from './reducer.js';
+// import {reducer, Operation} from './reducer.js';
 import withScreenSwitch from './hocs/with-screen-switch/with-screen-switch.jsx';
 import thunk from 'redux-thunk';
 import createAPI from './api.js';
 import {composeWithDevTools} from 'redux-devtools-extension';
+import reducer from './reducer/reducer.js';
+import {Operation as DataOperation} from './reducer/data/data.js';
+import {Operation as UserOperation} from './reducer/user/user.js';
 
 const AppWrapped = withScreenSwitch(App);
 
@@ -19,13 +22,12 @@ const init = () => {
       )
   );
 
-  store.dispatch(Operation.loadQuestions());
+  store.dispatch(DataOperation.loadQuestions());
 
-  store.dispatch(Operation.checkAuth());
+  store.dispatch(UserOperation.checkAuth());
 
   ReactDOM.render(<Provider store={store}>
-    <AppWrapped
-    />
+    <AppWrapped />
   </Provider>,
   document.getElementById(`root`)
   );
