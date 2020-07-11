@@ -120,4 +120,4 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-export {ActionCreator, reducer, ActionType};
+export {ActionCreator, reducer, ActionType, initialState, resetState, isArtistAnswerCorrect, isGenreAnswerCorrect};

@@ -38,4 +38,4 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-export {ActionCreator, reducer, Operation};
+export {ActionCreator, reducer, Operation, ActionType};
