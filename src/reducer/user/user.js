@@ -17,10 +17,10 @@ const resetState = {
 };
 
 const ActionCreator = {
-  requireAutorization: (isAutorization) => {
+  requireAuthorization: (isAuthorization) => {
     return {
       type: ActionType.IS_REQUIRE_AUTHORIZATION,
-      payload: isAutorization
+      payload: isAuthorization
     };
   },
 
@@ -49,7 +49,7 @@ const Operation = {
   checkAuth: () => (dispatch, getState, api) => {
     return api.get(`/login`)
       .then((response) => {
-        dispatch(ActionCreator.requireAutorization(false));
+        dispatch(ActionCreator.requireAuthorization(false));
         dispatch(ActionCreator.loadUserData(response.data));
         return response;
       });
@@ -64,7 +64,7 @@ const Operation = {
       .then((response) => {
         dispatch(ActionCreator.loadUserData(response.data));
         dispatch(ActionCreator.isBadLoginData(false));
-        dispatch(ActionCreator.requireAutorization(false));
+        dispatch(ActionCreator.requireAuthorization(false));
       })
       .catch((err) => {
         if (err.response.status === 400) {

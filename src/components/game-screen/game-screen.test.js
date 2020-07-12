@@ -2,20 +2,28 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import GameScreen from './game-screen.jsx';
 import configureStore from 'redux-mock-store';
-import questions from '../../mocks/questions.js';
 import {Provider} from 'react-redux';
+import NameSpace from '../../reducer/name-space.js';
+import questions from '../../mocks/questions.js';
 
 const mockStore = configureStore([]);
 
 it(`GameScreen snapshot test`, () => {
   const store = mockStore({
-    step: -1,
-    mistakes: 0,
-    maxMistakes: 3,
-    gameTime: 100,
-    currentTime: 0,
-    questions,
-    timerId: -1
+    [NameSpace.DATA]: {questions},
+    [NameSpace.USER]: {
+      isRequireAuthorization: true,
+      userData: {},
+      isBadLoginData: false
+    },
+    [NameSpace.GAME]: {
+      step: 2,
+      mistakes: 5,
+      maxMistakes: 12,
+      gameTime: 120,
+      currentTime: 16,
+      timerId: -1,
+    }
   });
 
   const tree = renderer

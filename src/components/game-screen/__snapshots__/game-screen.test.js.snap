@@ -51,12 +51,28 @@ exports[`GameScreen snapshot test 1`] = `
       <span
         className="timer__secs"
       >
-        00
+        16
       </span>
     </div>
     <div
       className="game__mistakes"
-    />
+    >
+      <div
+        className="wrong"
+      />
+      <div
+        className="wrong"
+      />
+      <div
+        className="wrong"
+      />
+      <div
+        className="wrong"
+      />
+      <div
+        className="wrong"
+      />
+    </div>
   </header>
   <div />
 </section>

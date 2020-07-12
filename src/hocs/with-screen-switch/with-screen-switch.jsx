@@ -26,6 +26,7 @@ import Timer from '../../timer.js';
 import withActivePlayer from '../with-active-player/with-active-player.jsx';
 import withUserAnswer from '../with-user-answer/with-user-answer.jsx';
 import withTransformProps from '../with-transform-props/with-transform-props.jsx';
+import withAuthData from '../with-auth-data/with-auth-data.jsx';
 
 const transformPlayerToAnswer = (props) => {
   const newProps = Object.assign({}, props, {
@@ -49,6 +50,8 @@ const GameGenreWrapped = withUserAnswer(
 
 const GameArtistWrapped = withActivePlayer(
     withTransformProps(transformPlayerToQuestion)(GameArtist));
+
+const AuthorizationScreenWrapped = withAuthData(AuthorizationScreen);
 
 const questionType = {
   ARTIST: `artist`,
@@ -89,7 +92,7 @@ const withScreenSwitch = (Component) => {
       const question = questions[step];
 
       if (isRequireAuthorization) {
-        return <AuthorizationScreen
+        return <AuthorizationScreenWrapped
           onAuthFormSubmit={onUserLogin}
           isBadLoginData={isBadLoginData ? true : false}
         />;
