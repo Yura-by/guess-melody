@@ -21,7 +21,7 @@ import AuthorizationScreen from '../../components/authorization-screen/authoriza
 import WinScreen from '../../components/win-screen/win-screen.jsx';
 import GameOver from '../../components/game-over/game-over.jsx';
 
-import Timer from '../../timer.js';
+import Timer from '../../timer/timer.js';
 
 import withActivePlayer from '../with-active-player/with-active-player.jsx';
 import withUserAnswer from '../with-user-answer/with-user-answer.jsx';
@@ -232,6 +232,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(UserOperation.login(userData));
   }
 });
+
+export {withScreenSwitch};
 
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
