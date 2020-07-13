@@ -1,5 +1,5 @@
 import React from 'react';
-import {App} from './app.jsx';
+import App from './app.jsx';
 import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
@@ -10,11 +10,7 @@ it(`App calls render function`, () => {
 
   shallow(<App
     renderScreen={mockFunc}
-    step={1500}
-    isBadLoginData={false}
-    isRequireAuthorization={false}
   />);
 
   expect(mockFunc).toHaveBeenCalledTimes(1);
-  expect(mockFunc).toHaveBeenNthCalledWith(1, 1500);
 });

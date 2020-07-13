@@ -1,17 +1,12 @@
-import {PureComponent} from 'react';
+import {Component} from 'react';
 import PropTypes from 'prop-types';
 // import {BrowserRouter, Route, Switch} from 'react-router-dom';
 // import GameScreen from '../game-screen/game-screen.jsx';
-import {connect} from 'react-redux';
 
-import {getStep} from '../../reducer/game/selectors.js';
-import {getIsRequireAuthorization, getIsBadLoginData} from '../../reducer/user/selectors.js';
-
-
-class App extends PureComponent {
+class App extends Component {
   render() {
-    const {renderScreen, step} = this.props;
-    return renderScreen(step);
+    const {renderScreen} = this.props;
+    return renderScreen();
     // <BrowserRouter>
     //   <Switch>
     //     <Route exact path="/">
@@ -37,20 +32,7 @@ class App extends PureComponent {
 
 App.propTypes = {
   renderScreen: PropTypes.func.isRequired,
-  step: PropTypes.number.isRequired,
-  isRequireAuthorization: PropTypes.bool.isRequired,
-  isBadLoginData: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = (state) => {
-  return {
-    step: getStep(state),
-    isRequireAuthorization: getIsRequireAuthorization(state),
-    isBadLoginData: getIsBadLoginData(state)
-  };
-};
-
-export {App};
-
-export default connect(mapStateToProps)(App);
+export default App;
 
