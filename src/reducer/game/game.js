@@ -2,7 +2,7 @@ const ActionType = {
   INCREMENT_STEP: `INCREMENT_STEP`,
   REDUCE_TIME: `REDUCE_TIME`,
   SET_TIMER_ID: `SET_TIMER_ID`,
-  TIME_ENDED: `TIME_ENDED`,
+  // TIME_ENDED: `TIME_ENDED`,
   RESET_GAME: `RESET_GAME`,
   INCREMENT_MISTAKES: `INCREMENT_MISTAKES`
 };
@@ -10,7 +10,7 @@ const ActionType = {
 const initialState = {
   step: -1,
   mistakes: 0,
-  maxMistakes: 12,
+  maxMistakes: 2,
   gameTime: 120,
   currentTime: 0,
   timerId: -1,
@@ -57,12 +57,12 @@ const ActionCreator = {
     };
   },
 
-  timeEnded: () => {
-    return {
-      type: ActionType.TIME_ENDED,
-      payload: -2
-    };
-  },
+  // timeEnded: () => {
+  //   return {
+  //     type: ActionType.TIME_ENDED,
+  //     payload: -2
+  //   };
+  // },
 
   resetGame: () => ({
     type: ActionType.RESET_GAME,
@@ -107,10 +107,10 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         currentTime: action.payload
       });
-    case ActionType.TIME_ENDED:
-      return Object.assign({}, state, {
-        step: action.payload
-      });
+    // case ActionType.TIME_ENDED:
+    //   return Object.assign({}, state, {
+    //     step: action.payload
+    //   });
     case ActionType.SET_TIMER_ID:
       return Object.assign({}, state, {
         timerId: action.payload

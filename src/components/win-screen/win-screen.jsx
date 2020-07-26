@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const.js';
 
 const WinScreen = (props) => {
   const {
@@ -17,9 +19,13 @@ const WinScreen = (props) => {
       <h2 className="result__title">Вы настоящий меломан!</h2>
       <p className="result__total">{`За ${minute} минуты и ${second} секунд вы набрали 12 баллов (8 быстрых), совершив ${mistakes} ошибки`}</p>
       <p className="result__text">Вы заняли 2 место из 10. Это лучше чем у 80% игроков</p>
-      <button
+      <Link
         onClick={onResetGame}
-        className="replay" type="button">Сыграть ещё раз</button>
+        className="replay"
+        to={AppRoute.ROOT}
+      >
+          Сыграть ещё раз
+      </Link>
     </section>
   );
 };

@@ -10,7 +10,7 @@ const AuthorizationScreen = (props) => {
         <img src="img/melody-logo.png" alt="Угадай мелодию" width="186" height="83" />
       </div>
       <h2 className="login__title">Необходима авторизация</h2>
-      <p className="login__text">Представтесь!</p>
+      <p className="login__text">Представьтесь!</p>
       <form
         onSubmit={formSubmitHandler}
         className="login__form" action="">

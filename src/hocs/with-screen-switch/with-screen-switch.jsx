@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {compose} from 'recompose';
+import {Route, Switch, Redirect} from 'react-router-dom';
 
 import {getStep, getMistakes, getGameTime, getMaxMistakes, getTimerId, getCurrentTime} from '../../reducer/game/selectors.js';
 import {getQuestions} from '../../reducer/data/selectors.js';
@@ -20,8 +21,11 @@ import FailTime from '../../components/fail-time/fail-time.jsx';
 import AuthorizationScreen from '../../components/authorization-screen/authorization-screen.jsx';
 import WinScreen from '../../components/win-screen/win-screen.jsx';
 import GameOver from '../../components/game-over/game-over.jsx';
+import PrivateRoute from '../../components/private-route/private-route.jsx';
 
 import Timer from '../../timer/timer.js';
+import {AppRoute} from '../../const.js';
+import history from '../../history.js';
 
 import withActivePlayer from '../with-active-player/with-active-player.jsx';
 import withUserAnswer from '../with-user-answer/with-user-answer.jsx';
@@ -67,9 +71,57 @@ const withScreenSwitch = (Component) => {
     }
 
     render() {
-      return <Component
-        renderScreen={this._getScreen}
-      />;
+      // const {onUserResetGame, onUserLogin, isBadLoginData, gameTime, currentTime, mistakes} = this.props;
+      console.log(`render with-screen-switch`)
+      return (
+        <Switch>
+
+          <Route path={AppRoute.ROOT} exact
+            render={() => {
+              return <Component
+                {...this.props}
+                renderScreen={this._getScreen} />;
+            }}
+          />
+          <Route path={AppRoute.LOSE} exact
+            render={() => {
+              return <GameOver
+                onResetGame={this.props.onUserResetGame}
+              />;
+            }}
+          />
+          <Route path={AppRoute.TIME} exact
+            render={() => {
+              return <FailTime
+                onUserClick={this.props.onUserResetGame}
+              />;
+            }}
+          />
+          <Route path={AppRoute.LOGIN} exact
+            render={() => {
+              return <AuthorizationScreenWrapped
+                onAuthFormSubmit={this.props.onUserLogin}
+                isBadLoginData={this.props.isBadLoginData}
+              />;
+            }}
+          />
+          <PrivateRoute
+            path={AppRoute.RESULT}
+            exact={true}
+            render={() => {
+              return (
+                <WinScreen
+                  gameTime={this.props.gameTime}
+                  currentTime={this.props.currentTime}
+                  mistakes={this.props.mistakes}
+                  onResetGame={this.props.onUserResetGame}
+                />
+              );
+            }}
+          />
+
+        </Switch>
+      );
     }
 
     _getScreen() {
@@ -89,48 +141,65 @@ const withScreenSwitch = (Component) => {
         currentTime
       } = this.props;
 
+      if (step === -1) {
+        return <WelcomeScreen
+          time={gameTime / 60}
+          errorCount={maxMistakes}
+          onStartButtonClick={
+            () => {
+              onWelcomeScreenClick(gameTime, timerId, step, questions.length);
+            }
+          }
+        />;
+      }
+
+
       const question = questions[step];
 
-      if (isRequireAuthorization) {
-        return <AuthorizationScreenWrapped
-          onAuthFormSubmit={onUserLogin}
-          isBadLoginData={isBadLoginData ? true : false}
-        />;
-      }
 
-      if (step === -2) {
-        return (
-          <FailTime
-            onUserClick={onUserResetGame}
-          />
-        );
-      }
+      // if (isRequireAuthorization) {
+      //   return <AuthorizationScreenWrapped
+      //     onAuthFormSubmit={onUserLogin}
+      //     isBadLoginData={isBadLoginData ? true : false}
+      //   />;
+      // }
+
+      // if (step === -2) {
+      //   return (
+      //     <FailTime
+      //       onUserClick={onUserResetGame}
+      //     />
+      //   );
+      // }
 
       if (mistakes >= maxMistakes) {
-        return <GameOver
-          onResetGame={onUserResetGame}
-        />;
+        // return <GameOver
+        //   onResetGame={onUserResetGame}
+        // />;
+        return <Redirect to={AppRoute.LOSE} />;
       }
 
       if (!question) {
-        if (step > questions.length - 1) {
-          return <WinScreen
-            gameTime={gameTime}
-            currentTime={currentTime}
-            mistakes={mistakes}
-            onResetGame={onUserResetGame}
-          />;
+        if (step >= questions.length && !isRequireAuthorization) {
+          // return <WinScreen
+          //   gameTime={gameTime}
+          //   currentTime={currentTime}
+          //   mistakes={mistakes}
+          //   onResetGame={onUserResetGame}
+          // />;
+          return <Redirect to={AppRoute.RESULT} />;
         } else {
 
-          return <WelcomeScreen
-            time={gameTime / 60}
-            errorCount={maxMistakes}
-            onStartButtonClick={
-              () => {
-                onWelcomeScreenClick(gameTime, timerId, step, questions.length);
-              }
-            }
-          />;
+          // return <WelcomeScreen
+          //   time={gameTime / 60}
+          //   errorCount={maxMistakes}
+          //   onStartButtonClick={
+          //     () => {
+          //       onWelcomeScreenClick(gameTime, timerId, step, questions.length);
+          //     }
+          //   }
+          // />;
+          return <Redirect to={AppRoute.LOGIN} />;
         }
       }
 
@@ -208,7 +277,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(GameActionCreator.incrementStep(step, currentTimerId, questionsLength));
     const timer = new Timer(gameTime, () => {
       clearInterval(timerID);
-      dispatch(GameActionCreator.timeEnded());
+      // dispatch(GameActionCreator.timeEnded());
+      history.push(AppRoute.TIME);
     });
 
     let timerID = setInterval(() => {
