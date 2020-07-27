@@ -1,3 +1,6 @@
+import history from '../../history.js';
+import {AppRoute} from '../../const.js';
+
 const ActionType = {
   IS_REQUIRE_AUTHORIZATION: `IS_REQUIRE_AUTHORIZATION`,
   ADD_USER_DATA: `ADD_USER_DATA`,
@@ -65,6 +68,7 @@ const Operation = {
         dispatch(ActionCreator.loadUserData(response.data));
         dispatch(ActionCreator.isBadLoginData(false));
         dispatch(ActionCreator.requireAuthorization(false));
+        history.push(AppRoute.ROOT);
       })
       .catch((err) => {
         if (err.response.status === 400) {

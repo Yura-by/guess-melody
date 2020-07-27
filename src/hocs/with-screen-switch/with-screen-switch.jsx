@@ -71,8 +71,6 @@ const withScreenSwitch = (Component) => {
     }
 
     render() {
-      // const {onUserResetGame, onUserLogin, isBadLoginData, gameTime, currentTime, mistakes} = this.props;
-      console.log(`render with-screen-switch`)
       return (
         <Switch>
 
@@ -133,12 +131,8 @@ const withScreenSwitch = (Component) => {
         step,
         onWelcomeScreenClick,
         onUserAnswer,
-        onUserResetGame,
         timerId,
         isRequireAuthorization,
-        onUserLogin,
-        isBadLoginData,
-        currentTime
       } = this.props;
 
       if (step === -1) {
@@ -152,53 +146,16 @@ const withScreenSwitch = (Component) => {
           }
         />;
       }
-
-
       const question = questions[step];
 
-
-      // if (isRequireAuthorization) {
-      //   return <AuthorizationScreenWrapped
-      //     onAuthFormSubmit={onUserLogin}
-      //     isBadLoginData={isBadLoginData ? true : false}
-      //   />;
-      // }
-
-      // if (step === -2) {
-      //   return (
-      //     <FailTime
-      //       onUserClick={onUserResetGame}
-      //     />
-      //   );
-      // }
-
       if (mistakes >= maxMistakes) {
-        // return <GameOver
-        //   onResetGame={onUserResetGame}
-        // />;
         return <Redirect to={AppRoute.LOSE} />;
       }
 
       if (!question) {
         if (step >= questions.length && !isRequireAuthorization) {
-          // return <WinScreen
-          //   gameTime={gameTime}
-          //   currentTime={currentTime}
-          //   mistakes={mistakes}
-          //   onResetGame={onUserResetGame}
-          // />;
           return <Redirect to={AppRoute.RESULT} />;
         } else {
-
-          // return <WelcomeScreen
-          //   time={gameTime / 60}
-          //   errorCount={maxMistakes}
-          //   onStartButtonClick={
-          //     () => {
-          //       onWelcomeScreenClick(gameTime, timerId, step, questions.length);
-          //     }
-          //   }
-          // />;
           return <Redirect to={AppRoute.LOGIN} />;
         }
       }
@@ -277,7 +234,6 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(GameActionCreator.incrementStep(step, currentTimerId, questionsLength));
     const timer = new Timer(gameTime, () => {
       clearInterval(timerID);
-      // dispatch(GameActionCreator.timeEnded());
       history.push(AppRoute.TIME);
     });
 
