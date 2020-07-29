@@ -2,7 +2,8 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {compose} from 'recompose';
-import {Route, Switch, Redirect} from 'react-router-dom';
+import {Route, Switch, Redirect, Router} from 'react-router-dom';
+import history from '../../history.js';
 
 import {getStep, getMistakes, getGameTime, getMaxMistakes, getTimerId, getCurrentTime} from '../../reducer/game/selectors.js';
 import {getQuestions} from '../../reducer/data/selectors.js';
@@ -25,7 +26,6 @@ import PrivateRoute from '../../components/private-route/private-route.jsx';
 
 import Timer from '../../timer/timer.js';
 import {AppRoute} from '../../const.js';
-import history from '../../history.js';
 
 import withActivePlayer from '../with-active-player/with-active-player.jsx';
 import withUserAnswer from '../with-user-answer/with-user-answer.jsx';
@@ -72,53 +72,54 @@ const withScreenSwitch = (Component) => {
 
     render() {
       return (
-        <Switch>
-
-          <Route path={AppRoute.ROOT} exact
-            render={() => {
-              return <Component
-                {...this.props}
-                renderScreen={this._getScreen} />;
-            }}
-          />
-          <Route path={AppRoute.LOSE} exact
-            render={() => {
-              return <GameOver
-                onResetGame={this.props.onUserResetGame}
-              />;
-            }}
-          />
-          <Route path={AppRoute.TIME} exact
-            render={() => {
-              return <FailTime
-                onUserClick={this.props.onUserResetGame}
-              />;
-            }}
-          />
-          <Route path={AppRoute.LOGIN} exact
-            render={() => {
-              return <AuthorizationScreenWrapped
-                onAuthFormSubmit={this.props.onUserLogin}
-                isBadLoginData={this.props.isBadLoginData}
-              />;
-            }}
-          />
-          <PrivateRoute
-            path={AppRoute.RESULT}
-            exact={true}
-            render={() => {
-              return (
-                <WinScreen
-                  gameTime={this.props.gameTime}
-                  currentTime={this.props.currentTime}
-                  mistakes={this.props.mistakes}
+        <Router history={history}>
+          <Switch>
+            <Route path={AppRoute.ROOT} exact
+              render={() => {
+                return <Component
+                  {...this.props}
+                  renderScreen={this._getScreen} />;
+              }}
+            />
+            <Route path={AppRoute.LOSE} exact
+              render={() => {
+                return <GameOver
                   onResetGame={this.props.onUserResetGame}
-                />
-              );
-            }}
-          />
+                />;
+              }}
+            />
+            <Route path={AppRoute.TIME} exact
+              render={() => {
+                return <FailTime
+                  onUserClick={this.props.onUserResetGame}
+                />;
+              }}
+            />
+            <Route path={AppRoute.LOGIN} exact
+              render={() => {
+                return <AuthorizationScreenWrapped
+                  onAuthFormSubmit={this.props.onUserLogin}
+                  isBadLoginData={this.props.isBadLoginData}
+                />;
+              }}
+            />
+            <PrivateRoute
+              path={AppRoute.RESULT}
+              exact={true}
+              render={() => {
+                return (
+                  <WinScreen
+                    gameTime={this.props.gameTime}
+                    currentTime={this.props.currentTime}
+                    mistakes={this.props.mistakes}
+                    onResetGame={this.props.onUserResetGame}
+                  />
+                );
+              }}
+            />
+          </Switch>
+        </Router>
 
-        </Switch>
       );
     }
 

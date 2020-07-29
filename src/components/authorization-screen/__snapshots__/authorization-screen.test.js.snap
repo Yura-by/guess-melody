@@ -22,7 +22,7 @@ exports[`AuthorizationScreen snapshot test 1`] = `
   <p
     className="login__text"
   >
-    Представтесь!
+    Представьтесь!
   </p>
   <form
     action=""

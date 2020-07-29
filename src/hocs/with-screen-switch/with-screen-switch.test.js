@@ -63,111 +63,6 @@ MockComponent.propTypes = {
 const WithScreenSwitch = withScreenSwitch(MockComponent);
 const PureWitnScreenSwitch = pureWithScreenSwitch(MockComponent);
 
-it(`AuthorizationScreenWrapped renders correctly`, () => {
-  const store = mockStore({
-    [NameSpace.DATA]: {questions},
-    [NameSpace.USER]: {
-      isRequireAuthorization: true,
-      userData: {},
-      isBadLoginData: false
-    },
-    [NameSpace.GAME]: {
-      step: 2,
-      mistakes: 5,
-      maxMistakes: 12,
-      gameTime: 120,
-      currentTime: 16,
-      timerId: -1,
-    }
-  });
-
-  const tree = renderer
-    .create(<Provider store={store}>
-      <WithScreenSwitch />
-    </Provider>
-    ).toJSON();
-
-  expect(tree).toMatchSnapshot();
-});
-
-it(`FailTime renders correctly`, () => {
-  const store = mockStore({});
-
-  const tree = renderer
-    .create(<Provider store={store}>
-      <PureWitnScreenSwitch
-        gameTime={120}
-        maxMistakes={3}
-        step={-2}
-        mistakes={1}
-        onWelcomeScreenClick={() => {}}
-        onUserAnswer={() => {}}
-        questions={questions}
-        onUserResetGame={() => {}}
-        timerId={6}
-        isRequireAuthorization={false}
-        onUserLogin={() => {}}
-        isBadLoginData={false}
-        currentTime={15}
-      />
-    </Provider>
-    ).toJSON();
-
-  expect(tree).toMatchSnapshot();
-});
-
-it(`GameOver renders correctly`, () => {
-  const store = mockStore({});
-
-  const tree = renderer
-    .create(<Provider store={store}>
-      <PureWitnScreenSwitch
-        gameTime={120}
-        maxMistakes={3}
-        step={3}
-        mistakes={3}
-        onWelcomeScreenClick={() => {}}
-        onUserAnswer={() => {}}
-        questions={questions}
-        onUserResetGame={() => {}}
-        timerId={6}
-        isRequireAuthorization={false}
-        onUserLogin={() => {}}
-        isBadLoginData={false}
-        currentTime={15}
-      />
-    </Provider>
-    ).toJSON();
-
-  expect(tree).toMatchSnapshot();
-});
-
-it(`WinScreen renders correctly`, () => {
-  const store = mockStore({});
-
-  const tree = renderer
-    .create(<Provider store={store}>
-      <PureWitnScreenSwitch
-        gameTime={120}
-        maxMistakes={3}
-        step={3}
-        mistakes={2}
-        onWelcomeScreenClick={() => {}}
-        onUserAnswer={() => {}}
-        questions={questions}
-        onUserResetGame={() => {}}
-        timerId={6}
-        isRequireAuthorization={false}
-        onUserLogin={() => {}}
-        isBadLoginData={false}
-        currentTime={15}
-      />
-    </Provider>
-    ).toJSON();
-
-  expect(tree).toMatchSnapshot();
-});
-
 it(`WelcomeScreen renders correctly`, () => {
   const store = mockStore({});
 
@@ -196,9 +91,19 @@ it(`WelcomeScreen renders correctly`, () => {
 
 it(`GenreQuestion renders correctly`, () => {
   const store = mockStore({
+    [NameSpace.DATA]: {questions},
+    [NameSpace.USER]: {
+      isRequireAuthorization: true,
+      userData: {},
+      isBadLoginData: false
+    },
     [NameSpace.GAME]: {
-      mistakes: 2,
-      currentTime: 18
+      step: 0,
+      mistakes: 5,
+      maxMistakes: 12,
+      gameTime: 120,
+      currentTime: 16,
+      timerId: -1,
     }
   });
 
@@ -231,9 +136,19 @@ it(`GenreQuestion renders correctly`, () => {
 
 it(`ArtistQuestion renders correctly`, () => {
   const store = mockStore({
+    [NameSpace.DATA]: {questions},
+    [NameSpace.USER]: {
+      isRequireAuthorization: true,
+      userData: {},
+      isBadLoginData: false
+    },
     [NameSpace.GAME]: {
-      mistakes: 2,
-      currentTime: 18
+      step: 1,
+      mistakes: 5,
+      maxMistakes: 12,
+      gameTime: 120,
+      currentTime: 16,
+      timerId: -1,
     }
   });
 
@@ -259,6 +174,33 @@ it(`ArtistQuestion renders correctly`, () => {
         return {};
       }
     }
+    ).toJSON();
+
+  expect(tree).toMatchSnapshot();
+});
+
+it(`AuthorizationScreenWrapped renders correctly`, () => {
+  const store = mockStore({
+    [NameSpace.DATA]: {questions},
+    [NameSpace.USER]: {
+      isRequireAuthorization: true,
+      userData: {},
+      isBadLoginData: false
+    },
+    [NameSpace.GAME]: {
+      step: 2,
+      mistakes: 5,
+      maxMistakes: 12,
+      gameTime: 120,
+      currentTime: 16,
+      timerId: -1,
+    }
+  });
+
+  const tree = renderer
+    .create(<Provider store={store}>
+      <WithScreenSwitch />
+    </Provider>
     ).toJSON();
 
   expect(tree).toMatchSnapshot();

@@ -5,6 +5,8 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import NameSpace from '../../reducer/name-space.js';
 import questions from '../../mocks/questions.js';
+import {Router} from 'react-router-dom';
+import history from '../../history.js';
 
 const mockStore = configureStore([]);
 
@@ -28,9 +30,11 @@ it(`GameScreen snapshot test`, () => {
 
   const tree = renderer
     .create(<Provider store={store}>
-      <GameScreen type={`genre`}>
-        <div></div>
-      </GameScreen>
+      <Router history={history}>
+        <GameScreen type={`genre`}>
+          <div></div>
+        </GameScreen>
+      </Router>
     </Provider>).toJSON();
 
   expect(tree).toMatchSnapshot();

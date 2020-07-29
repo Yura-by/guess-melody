@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test for FailTime 1`] = `
+exports[`GameOver snapshot test 1`] = `
 <section
   className="result"
 >
@@ -17,12 +17,12 @@ exports[`Snapshot test for FailTime 1`] = `
   <h2
     className="result__title"
   >
-    Увы и ах!
+    Какая жалость!
   </h2>
   <p
     className="result__total result__total--fail"
   >
-    Время вышло! Вы не успели отгадать все мелодии
+    У вас закончились все попытки. Ничего, повезёт в следующий раз!
   </p>
   <a
     className="replay"

@@ -15,7 +15,6 @@ const initialState = {
 };
 
 const resetState = {
-  isRequireAuthorization: false,
   isBadLoginData: false
 };
 

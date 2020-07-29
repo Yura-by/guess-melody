@@ -9,9 +9,6 @@ import createAPI from './api.js';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import reducer from './reducer/reducer.js';
 import {Operation as DataOperation} from './reducer/data/data.js';
-import {Operation as UserOperation} from './reducer/user/user.js';
-import {Router} from 'react-router-dom';
-import history from './history.js';
 import {AppRoute} from './const.js';
 
 const AppWrapped = withScreenSwitch(App);
@@ -26,12 +23,8 @@ const init = () => {
 
   store.dispatch(DataOperation.loadQuestions());
 
-  store.dispatch(UserOperation.checkAuth());
-
   ReactDOM.render(<Provider store={store}>
-    <Router history={history}>
-      <AppWrapped />
-    </Router>
+    <AppWrapped />
   </Provider>,
   document.getElementById(`root`)
   );

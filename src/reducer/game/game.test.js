@@ -127,27 +127,6 @@ describe(`Game reducer works correctly`, () => {
     });
   });
 
-  it(`Reducer should correctly time ended application state`, () => {
-    expect(reducer({
-      step: 150,
-      mistakes: 0,
-      currentTime: 150,
-      timerId: -1,
-      maxMistakes: 12,
-      gameTime: 120,
-    }, {
-      type: ActionType.TIME_ENDED,
-      payload: -5
-    })).toEqual({
-      step: -5,
-      mistakes: 0,
-      currentTime: 150,
-      timerId: -1,
-      maxMistakes: 12,
-      gameTime: 120,
-    });
-  });
-
   it(`Reducer should correctly set timer id application state`, () => {
     expect(reducer({
       step: -5,
@@ -312,13 +291,6 @@ describe(`Game ActionCreator works correctly`, () => {
     expect(ActionCreator.setTimerId(12000)).toEqual({
       type: ActionType.SET_TIMER_ID,
       payload: 12000
-    });
-  });
-
-  it(`ActionCreator for time ended return correct action`, () => {
-    expect(ActionCreator.timeEnded()).toEqual({
-      type: ActionType.TIME_ENDED,
-      payload: -2
     });
   });
 

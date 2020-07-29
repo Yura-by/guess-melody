@@ -61,7 +61,7 @@ describe(`User reducer works correctly`, () => {
       type: ActionType.RESET_USER_DATA,
       payload: resetState
     })).toEqual({
-      isRequireAuthorization: false,
+      isRequireAuthorization: true,
       userData: {name: `Den`},
       isBadLoginData: false
     });

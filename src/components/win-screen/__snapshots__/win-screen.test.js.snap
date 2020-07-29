@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test for FailTime 1`] = `
+exports[`WinScreen snapshot test 1`] = `
 <section
   className="result"
 >
@@ -17,19 +17,19 @@ exports[`Snapshot test for FailTime 1`] = `
   <h2
     className="result__title"
   >
-    Увы и ах!
+    Вы настоящий меломан!
   </h2>
   <p
-    className="result__total result__total--fail"
+    className="result__total"
   >
-    Время вышло! Вы не успели отгадать все мелодии
+    За 0 минуты и 3 секунд вы ответили на все вопросы, совершив 3 ошибки
   </p>
   <a
     className="replay"
     href="/"
     onClick={[Function]}
   >
-    Попробовать ещё раз
+    Сыграть ещё раз
   </a>
 </section>
 `;
