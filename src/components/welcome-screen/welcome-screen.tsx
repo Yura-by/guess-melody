@@ -1,7 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+// import PropTypes from 'prop-types';
 
-const WelcomeScreen = (props) => {
+interface Props {
+  time: number;
+  errorCount: number;
+  onStartButtonClick: () => void;
+}
+
+const WelcomeScreen: React.FunctionComponent<Props> = (props) => {
   const {time, errorCount, onStartButtonClick} = props;
   return (
     <section className="welcome">
@@ -20,10 +26,10 @@ const WelcomeScreen = (props) => {
   );
 };
 
-WelcomeScreen.propTypes = {
-  time: PropTypes.number.isRequired,
-  errorCount: PropTypes.number.isRequired,
-  onStartButtonClick: PropTypes.func.isRequired
-};
+// WelcomeScreen.propTypes = {
+//   time: PropTypes.number.isRequired,
+//   errorCount: PropTypes.number.isRequired,
+//   onStartButtonClick: PropTypes.func.isRequired
+// };
 
 export default WelcomeScreen;

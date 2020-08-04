@@ -1,10 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+// import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const.js';
 
+interface Props {
+  onResetGame: () => void;
+};
 
-const GameOver = (props) => {
+const GameOver: React.FunctionComponent<Props> = (props) => {
   const {onResetGame} = props;
   return (
     <section className="result">
@@ -22,8 +25,8 @@ const GameOver = (props) => {
   );
 };
 
-GameOver.propTypes = {
-  onResetGame: PropTypes.func.isRequired
-};
+// GameOver.propTypes = {
+//   onResetGame: PropTypes.func.isRequired
+// };
 
 export default GameOver;

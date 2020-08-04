@@ -1,9 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+// import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const.js';
 
-const WinScreen = (props) => {
+interface Props {
+  gameTime: number;
+  currentTime: number;
+  mistakes: number;
+  onResetGame: () => void;
+};
+
+const WinScreen: React.FunctionComponent<Props> = (props) => {
   const {
     gameTime,
     currentTime,
@@ -29,11 +36,11 @@ const WinScreen = (props) => {
   );
 };
 
-WinScreen.propTypes = {
-  gameTime: PropTypes.number.isRequired,
-  currentTime: PropTypes.number.isRequired,
-  mistakes: PropTypes.number.isRequired,
-  onResetGame: PropTypes.func.isRequired
-};
+// WinScreen.propTypes = {
+//   gameTime: PropTypes.number.isRequired,
+//   currentTime: PropTypes.number.isRequired,
+//   mistakes: PropTypes.number.isRequired,
+//   onResetGame: PropTypes.func.isRequired
+// };
 
 export default WinScreen;

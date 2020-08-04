@@ -1,7 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import {ArtistQuestion, ArtistAnswer, Song} from '../../types';
+// import PropTypes from 'prop-types';
 
-const GameArtist = (props) => {
+interface Props {
+  question: ArtistQuestion;
+  onAnswer: (answer: ArtistAnswer) => void;
+  renderQuestion: (song: Song, index: number) => React.ReactElement;
+};
+
+const GameArtist: React.FunctionComponent<Props> = (props) => {
   const {question, onAnswer, renderQuestion} = props;
   const {answers, song} = question;
 
@@ -44,21 +51,21 @@ const GameArtist = (props) => {
   );
 };
 
-GameArtist.propTypes = {
-  question: PropTypes.shape({
-    type: PropTypes.string.isRequired,
-    song: PropTypes.shape({
-      artist: PropTypes.string.isRequired,
-      src: PropTypes.string.isRequires,
-    }).isRequired,
-    answers: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      picture: PropTypes.string.isRequired,
-      artist: PropTypes.string.isRequired
-    })).isRequired
-  }),
-  onAnswer: PropTypes.func.isRequired,
-  renderQuestion: PropTypes.func.isRequired
-};
+// GameArtist.propTypes = {
+//   question: PropTypes.shape({
+//     type: PropTypes.string.isRequired,
+//     song: PropTypes.shape({
+//       artist: PropTypes.string.isRequired,
+//       src: PropTypes.string.isRequires,
+//     }).isRequired,
+//     answers: PropTypes.arrayOf(PropTypes.shape({
+//       id: PropTypes.number.isRequired,
+//       picture: PropTypes.string.isRequired,
+//       artist: PropTypes.string.isRequired
+//     })).isRequired
+//   }),
+//   onAnswer: PropTypes.func.isRequired,
+//   renderQuestion: PropTypes.func.isRequired
+// };
 
 export default GameArtist;

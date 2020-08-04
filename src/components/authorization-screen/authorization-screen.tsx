@@ -1,7 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+// import PropTypes from 'prop-types';
 
-const AuthorizationScreen = (props) => {
+interface Props {
+  isBadLoginData: boolean;
+  email: string;
+  password: string;
+  formSubmitHandler: (evt: React.FormEvent<HTMLFormElement>) => void;
+  loginChangeHandler: (evt: React.ChangeEvent<HTMLInputElement>) => void;
+  passwordChangeHandler: (evt: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+const AuthorizationScreen: React.FunctionComponent<Props> = (props) => {
 
   const {isBadLoginData, email, password, formSubmitHandler, loginChangeHandler, passwordChangeHandler} = props;
   return (
@@ -38,13 +47,13 @@ const AuthorizationScreen = (props) => {
 
 };
 
-AuthorizationScreen.propTypes = {
-  isBadLoginData: PropTypes.bool.isRequired,
-  email: PropTypes.string,
-  password: PropTypes.string,
-  formSubmitHandler: PropTypes.func.isRequired,
-  loginChangeHandler: PropTypes.func.isRequired,
-  passwordChangeHandler: PropTypes.func.isRequired,
-};
+// AuthorizationScreen.propTypes = {
+//   isBadLoginData: PropTypes.bool.isRequired,
+//   email: PropTypes.string,
+//   password: PropTypes.string,
+//   formSubmitHandler: PropTypes.func.isRequired,
+//   loginChangeHandler: PropTypes.func.isRequired,
+//   passwordChangeHandler: PropTypes.func.isRequired,
+// };
 
 export default AuthorizationScreen;

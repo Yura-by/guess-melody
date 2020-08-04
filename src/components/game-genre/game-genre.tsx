@@ -1,7 +1,16 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import {GenreQuestion, GenreAnswer} from '../../types';
+// import PropTypes from 'prop-types';
 
-export default class GameGenre extends PureComponent {
+interface Props {
+  question: GenreQuestion;
+  onAnswer: (ansers: boolean[]) => void;
+  userAnswers: boolean[];
+  renderAnswer: (answer: GenreAnswer, index: number) => React.ReactElement;
+  onChange: (indes: number) => void;
+};
+
+export default class GameGenre extends React.PureComponent<Props, null> {
 
   render() {
     const {question, onAnswer, userAnswers, renderAnswer, onChange} = this.props;
@@ -49,18 +58,18 @@ export default class GameGenre extends PureComponent {
   }
 }
 
-GameGenre.propTypes = {
-  question: PropTypes.shape({
-    type: PropTypes.oneOf([`genre`]).isRequired,
-    genre: PropTypes.string.isRequired,
-    answers: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      src: PropTypes.string.isRequired,
-      genre: PropTypes.string.isRequired
-    }))
-  }).isRequired,
-  onAnswer: PropTypes.func.isRequired,
-  renderAnswer: PropTypes.func.isRequired,
-  userAnswers: PropTypes.array.isRequired,
-  onChange: PropTypes.func.isRequired
-};
+// GameGenre.propTypes = {
+//   question: PropTypes.shape({
+//     type: PropTypes.oneOf([`genre`]).isRequired,
+//     genre: PropTypes.string.isRequired,
+//     answers: PropTypes.arrayOf(PropTypes.shape({
+//       id: PropTypes.number.isRequired,
+//       src: PropTypes.string.isRequired,
+//       genre: PropTypes.string.isRequired
+//     }))
+//   }).isRequired,
+//   onAnswer: PropTypes.func.isRequired,
+//   renderAnswer: PropTypes.func.isRequired,
+//   userAnswers: PropTypes.array.isRequired,
+//   onChange: PropTypes.func.isRequired
+// };

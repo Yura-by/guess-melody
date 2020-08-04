@@ -1,9 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+// import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const.js';
+import {AppRoute} from '../../const';
 
-const FailTime = ({onUserClick}) => {
+interface Props {
+  onUserClick: () => void;
+};
+
+const FailTime: React.FunctionComponent<Props> = ({onUserClick}) => {
   return (
     <section className="result">
       <div className="result__logo"><img src="img/melody-logo.png" alt="Угадай мелодию" width="186" height="83" /></div>
@@ -19,8 +23,8 @@ const FailTime = ({onUserClick}) => {
   );
 };
 
-FailTime.propTypes = {
-  onUserClick: PropTypes.func.isRequired
-};
+// FailTime.propTypes = {
+//   onUserClick: PropTypes.func.isRequired
+// };
 
 export default FailTime;
