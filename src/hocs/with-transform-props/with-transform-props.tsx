@@ -19,8 +19,6 @@ const withTransformProps = (transformFunc: (props: object) => object) => (Compon
     />;
   };
 
-  // WithTransformProps.propTypes = {};
-
   return WithTransformProps;
 };
 

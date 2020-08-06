@@ -1,5 +1,4 @@
 import * as React from 'react';
-// import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const.js';
 
@@ -35,12 +34,5 @@ const WinScreen: React.FunctionComponent<Props> = (props) => {
     </section>
   );
 };
-
-// WinScreen.propTypes = {
-//   gameTime: PropTypes.number.isRequired,
-//   currentTime: PropTypes.number.isRequired,
-//   mistakes: PropTypes.number.isRequired,
-//   onResetGame: PropTypes.func.isRequired
-// };
 
 export default WinScreen;

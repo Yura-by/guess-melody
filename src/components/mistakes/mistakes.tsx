@@ -1,5 +1,4 @@
 import * as React from 'react';
-// import PropTypes from 'prop-types';
 
 interface Props {
   mistakes: number;
@@ -14,9 +13,5 @@ const Mistakes: React.FunctionComponent<Props> = (props) => {
     </div>
   );
 };
-
-// Mistakes.propTypes = {
-//   mistakes: PropTypes.number.isRequired
-// };
 
 export default Mistakes;

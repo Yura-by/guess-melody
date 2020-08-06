@@ -1,5 +1,4 @@
 import * as React from 'react';
-// import PropTypes from 'prop-types';
 
 interface Props {
   time: number;
@@ -25,11 +24,5 @@ const WelcomeScreen: React.FunctionComponent<Props> = (props) => {
     </section>
   );
 };
-
-// WelcomeScreen.propTypes = {
-//   time: PropTypes.number.isRequired,
-//   errorCount: PropTypes.number.isRequired,
-//   onStartButtonClick: PropTypes.func.isRequired
-// };
 
 export default WelcomeScreen;

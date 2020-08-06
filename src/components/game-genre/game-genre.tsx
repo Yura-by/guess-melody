@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {GenreQuestion, GenreAnswer, RenderPlayer} from '../../types';
-// import PropTypes from 'prop-types';
 
 interface Props {
   question: GenreQuestion;
@@ -9,8 +8,6 @@ interface Props {
   renderAnswer: RenderPlayer;
   onChange: (indes: number) => void;
 };
-
-// renderAnswer: (answer: GenreAnswer, index: number) => React.ReactElement;
 
 export default class GameGenre extends React.PureComponent<Props, null> {
 
@@ -59,19 +56,3 @@ export default class GameGenre extends React.PureComponent<Props, null> {
     );
   }
 }
-
-// GameGenre.propTypes = {
-//   question: PropTypes.shape({
-//     type: PropTypes.oneOf([`genre`]).isRequired,
-//     genre: PropTypes.string.isRequired,
-//     answers: PropTypes.arrayOf(PropTypes.shape({
-//       id: PropTypes.number.isRequired,
-//       src: PropTypes.string.isRequired,
-//       genre: PropTypes.string.isRequired
-//     }))
-//   }).isRequired,
-//   onAnswer: PropTypes.func.isRequired,
-//   renderAnswer: PropTypes.func.isRequired,
-//   userAnswers: PropTypes.array.isRequired,
-//   onChange: PropTypes.func.isRequired
-// };

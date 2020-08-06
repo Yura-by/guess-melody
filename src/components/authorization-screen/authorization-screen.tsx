@@ -1,5 +1,4 @@
 import * as React from 'react';
-// import PropTypes from 'prop-types';
 
 interface Props {
   isBadLoginData: boolean;
@@ -46,14 +45,5 @@ const AuthorizationScreen: React.FunctionComponent<Props> = (props) => {
   );
 
 };
-
-// AuthorizationScreen.propTypes = {
-//   isBadLoginData: PropTypes.bool.isRequired,
-//   email: PropTypes.string,
-//   password: PropTypes.string,
-//   formSubmitHandler: PropTypes.func.isRequired,
-//   loginChangeHandler: PropTypes.func.isRequired,
-//   passwordChangeHandler: PropTypes.func.isRequired,
-// };
 
 export default AuthorizationScreen;

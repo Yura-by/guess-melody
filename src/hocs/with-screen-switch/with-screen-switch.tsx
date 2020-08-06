@@ -1,37 +1,52 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import {connect} from 'react-redux';
 import {compose} from 'recompose';
 import {Route, Switch, Redirect, Router} from 'react-router-dom';
-import history from '../../history.js';
 
-import {getStep, getMistakes, getGameTime, getMaxMistakes, getTimerId, getCurrentTime} from '../../reducer/game/selectors.js';
-import {getQuestions} from '../../reducer/data/selectors.js';
-import {getIsRequireAuthorization, getIsBadLoginData} from '../../reducer/user/selectors.js';
+import history from '../../history';
+import {getStep, getMistakes, getGameTime, getMaxMistakes, getTimerId, getCurrentTime} from '../../reducer/game/selectors';
+import {getQuestions} from '../../reducer/data/selectors';
+import {getIsRequireAuthorization, getIsBadLoginData} from '../../reducer/user/selectors';
 
-import {ActionCreator as GameActionCreator} from '../../reducer/game/game.js';
-import {ActionCreator as UserActionCreator} from '../../reducer/user/user.js';
+import {ActionCreator as GameActionCreator} from '../../reducer/game/game';
+import {ActionCreator as UserActionCreator} from '../../reducer/user/user';
 
-import {Operation as UserOperation} from '../../reducer/user/user.js';
+import {Operation as UserOperation} from '../../reducer/user/user';
 
-import WelcomeScreen from '../../components/welcome-screen/welcome-screen.jsx';
-import GameGenre from '../../components/game-genre/game-genre.jsx';
-import GameArtist from '../../components/game-artist/game-artist.jsx';
-import GameScreen from '../../components/game-screen/game-screen.jsx';
-import FailTime from '../../components/fail-time/fail-time.jsx';
-import AuthorizationScreen from '../../components/authorization-screen/authorization-screen.jsx';
-import WinScreen from '../../components/win-screen/win-screen.jsx';
-import GameOver from '../../components/game-over/game-over.jsx';
-import PrivateRoute from '../../components/private-route/private-route.jsx';
+import WelcomeScreen from '../../components/welcome-screen/welcome-screen';
+import GameGenre from '../../components/game-genre/game-genre';
+import GameArtist from '../../components/game-artist/game-artist';
+import GameScreen from '../../components/game-screen/game-screen';
+import FailTime from '../../components/fail-time/fail-time';
+import AuthorizationScreen from '../../components/authorization-screen/authorization-screen';
+import WinScreen from '../../components/win-screen/win-screen';
+import GameOver from '../../components/game-over/game-over';
+import PrivateRoute from '../../components/private-route/private-route';
 
-import Timer from '../../timer/timer.js';
-import {AppRoute} from '../../const.js';
+import Timer from '../../timer/timer';
+import {AppRoute} from '../../const';
+import {ArtistAnswer, Question} from '../../types';
 
-import withActivePlayer from '../with-active-player/with-active-player.jsx';
-import withUserAnswer from '../with-user-answer/with-user-answer.jsx';
-import withTransformProps from '../with-transform-props/with-transform-props.jsx';
-import withAuthData from '../with-auth-data/with-auth-data.jsx';
+import withActivePlayer from '../with-active-player/with-active-player';
+import withUserAnswer from '../with-user-answer/with-user-answer';
+import withTransformProps from '../with-transform-props/with-transform-props';
+import withAuthData from '../with-auth-data/with-auth-data';
 
+interface Props {
+  gameTime: number;
+  maxMistakes: number;
+  step: number;
+  mistakes: number;
+  onWelcomeScreenClick: (gameTime: number, currentTimerId: number, step: number, questionsLength: number) => void;
+  onUserAnswer: (userAnswer: boolean[] | ArtistAnswer, question: Question, mistakes: number, maxMistakes: number, step: number, timerId: number, questionsLength: number) => void;
+  questions: Question[];
+  onUserResetGame: () => void;
+  timerId: number;
+  isRequireAuthorization: boolean;
+  onUserLogin: (state: {email: string, password: string}) => void;
+  isBadLoginData: boolean;
+  currentTime: number;
+};
 
 const transformPlayerToAnswer = (props) => {
   const newProps = Object.assign({}, props, {
@@ -64,7 +79,8 @@ const questionType = {
 };
 
 const withScreenSwitch = (Component) => {
-  class WithScreenSwitch extends PureComponent {
+
+  class WithScreenSwitch extends React.PureComponent<Props, null>{
 
     constructor(props) {
       super(props);
@@ -197,22 +213,6 @@ const withScreenSwitch = (Component) => {
       return null;
     }
   }
-
-  WithScreenSwitch.propTypes = {
-    gameTime: PropTypes.number.isRequired,
-    maxMistakes: PropTypes.number.isRequired,
-    step: PropTypes.number.isRequired,
-    mistakes: PropTypes.number.isRequired,
-    onWelcomeScreenClick: PropTypes.func.isRequired,
-    onUserAnswer: PropTypes.func.isRequired,
-    questions: PropTypes.array.isRequired,
-    onUserResetGame: PropTypes.func,
-    timerId: PropTypes.number.isRequired,
-    isRequireAuthorization: PropTypes.bool.isRequired,
-    onUserLogin: PropTypes.func.isRequired,
-    isBadLoginData: PropTypes.bool.isRequired,
-    currentTime: PropTypes.number.isRequired
-  };
 
   return WithScreenSwitch;
 };

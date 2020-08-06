@@ -1,9 +1,8 @@
 import * as React from 'react';
-// import PropTypes from 'prop-types';
 import {Subtract} from 'utility-types';
 
-import AudioPlayer from '../../components/audio-player/audio-player.jsx';
-import withPlayer from '../../hocs/with-player/with-player.jsx';
+import AudioPlayer from '../../components/audio-player/audio-player';
+import withPlayer from '../../hocs/with-player/with-player';
 import {ArtistQuestion, GenreQuestion, RenderPlayer, GenreAnswer, Song} from '../../types';
 
 interface State {
@@ -68,8 +67,6 @@ const withActivePlayer = (Component) => {
       />;
     }
   }
-
-  // WithActivePlayer.propTypes = {question: PropTypes.object.isRequired};
 
   return WithActivePlayer;
 };

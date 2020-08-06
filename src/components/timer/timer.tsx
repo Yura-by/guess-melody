@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
-// import PropTypes from 'prop-types';
 
 import {getCurrentTime} from '../../reducer/game/selectors.js';
 
@@ -33,10 +32,6 @@ const mapStateToProps = (state) => {
     currentTime: getCurrentTime(state)
   };
 };
-
-// Timer.propTypes = {
-//   currentTime: PropTypes.number.isRequired,
-// };
 
 export {Timer};
 

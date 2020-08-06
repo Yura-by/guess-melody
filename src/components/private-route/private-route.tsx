@@ -1,5 +1,4 @@
 import * as React from 'react';
-// import PropTypes from 'prop-types';
 import {Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {AppRoute} from '../../const.js';
@@ -26,13 +25,6 @@ const PrivateRoute: React.FunctionComponent<Props> = ({path, exact, render, isRe
     />
   );
 };
-
-// PrivateRoute.propTypes = {
-//   path: PropTypes.string.isRequired,
-//   exact: PropTypes.bool.isRequired,
-//   render: PropTypes.func.isRequired,
-//   isRequireAuthorization: PropTypes.bool.isRequired
-// };
 
 const mapStateToProps = (state) => {
   return {

@@ -1,5 +1,5 @@
 import * as React from 'react';
-// import PropTypes from 'prop-types';
+import {Subtract} from 'utility-types';
 
 interface Props {
   isPlaying: boolean;
@@ -8,11 +8,23 @@ interface Props {
 };
 
 interface State {
+  progress: number;
+  isLoading: boolean;
+  isPlaying: boolean;
+};
 
+interface InjectedProps {
+  isLoading: boolean;
+  isPlaying: boolean;
+  onPlayButtonClick: () => void;
 };
 
 const withPlayer = (NeededComponent) => {
-  class WithPlayer extends React.Component {
+
+  type P = React.ComponentProps<typeof NeededComponent>;
+  type T = Props & Subtract<P, InjectedProps>;
+
+  class WithPlayer extends React.Component<T, State> {
     private _audioRef: React.RefObject<HTMLAudioElement>;
 
     constructor(props) {
@@ -47,7 +59,7 @@ const withPlayer = (NeededComponent) => {
       </NeededComponent>;
     }
 
-    _buttonClickHandler() {
+    private _buttonClickHandler() {
       const {onPlayButtonClick} = this.props;
       onPlayButtonClick();
       this.setState(({isPlaying}) => {
@@ -57,26 +69,26 @@ const withPlayer = (NeededComponent) => {
       });
     }
 
-    _setIsPlaying() {
+    private _setIsPlaying() {
       this.setState({
         isPlaying: true
       });
     }
 
-    _setIsNotPlaying() {
+    private _setIsNotPlaying() {
       this.setState({
         isPlaying: false
       });
     }
 
-    _setProgress() {
+    private _setProgress() {
       const audio = this._audioRef.current;
       this.setState({
         progress: audio.currentTime
       });
     }
 
-    _setIsLoading() {
+    private _setIsLoading() {
       this.setState({
         isLoading: false
       });
@@ -132,12 +144,6 @@ const withPlayer = (NeededComponent) => {
       }
     }
   }
-
-  // WithPlayer.propTypes = {
-  //   isPlaying: PropTypes.bool.isRequired,
-  //   src: PropTypes.string.isRequired,
-  //   onPlayButtonClick: PropTypes.func.isRequired
-  // };
 
   return WithPlayer;
 };

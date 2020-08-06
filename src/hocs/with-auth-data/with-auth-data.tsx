@@ -1,6 +1,5 @@
 import * as React from 'react';
-import {Subtract} from "utility-types";
-// import PropTypes from 'prop-types';
+import {Subtract} from 'utility-types';
 
 interface State {
   email: string;
@@ -72,10 +71,6 @@ const withAuthData = (Component) => {
       />;
     }
   }
-
-  // WithAuthData.propTypes = {
-  //   onAuthFormSubmit: PropTypes.func.isRequired
-  // };
 
   return WithAuthData;
 };

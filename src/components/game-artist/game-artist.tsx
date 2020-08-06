@@ -1,14 +1,11 @@
 import * as React from 'react';
 import {ArtistQuestion, ArtistAnswer, Song, RenderPlayer} from '../../types';
-// import PropTypes from 'prop-types';
 
 interface Props {
   question: ArtistQuestion;
   onAnswer: (answer: ArtistAnswer) => void;
   renderQuestion: RenderPlayer;
 };
-
-// renderQuestion: (song: Song, index: number) => React.ReactElement;
 
 const GameArtist: React.FunctionComponent<Props> = (props) => {
   const {question, onAnswer, renderQuestion} = props;
@@ -52,22 +49,5 @@ const GameArtist: React.FunctionComponent<Props> = (props) => {
     </section>
   );
 };
-
-// GameArtist.propTypes = {
-//   question: PropTypes.shape({
-//     type: PropTypes.string.isRequired,
-//     song: PropTypes.shape({
-//       artist: PropTypes.string.isRequired,
-//       src: PropTypes.string.isRequires,
-//     }).isRequired,
-//     answers: PropTypes.arrayOf(PropTypes.shape({
-//       id: PropTypes.number.isRequired,
-//       picture: PropTypes.string.isRequired,
-//       artist: PropTypes.string.isRequired
-//     })).isRequired
-//   }),
-//   onAnswer: PropTypes.func.isRequired,
-//   renderQuestion: PropTypes.func.isRequired
-// };
 
 export default GameArtist;

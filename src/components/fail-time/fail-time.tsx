@@ -1,5 +1,4 @@
 import * as React from 'react';
-// import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 
@@ -22,9 +21,5 @@ const FailTime: React.FunctionComponent<Props> = ({onUserClick}) => {
     </section>
   );
 };
-
-// FailTime.propTypes = {
-//   onUserClick: PropTypes.func.isRequired
-// };
 
 export default FailTime;

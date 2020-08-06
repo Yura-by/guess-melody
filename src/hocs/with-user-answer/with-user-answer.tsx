@@ -1,11 +1,12 @@
 import * as React from 'react';
-// import PropTypes from 'prop-types';
-import {ArtistQuestion, GenreQuestion} from '../../types';
+import {Subtract} from 'utility-types';
+import {ArtistQuestion, GenreQuestion, Question} from '../../types';
 
 interface InjectedProps {
+  userAnswers: boolean[];
+  onChange: (index: number) => void;
+  onAnswer: () => void;
 };
-
-type Question = ArtistQuestion | GenreQuestion;
 
 interface Props {
   onAnswer: (answer: boolean[]) => void;
@@ -14,10 +15,14 @@ interface Props {
 
 interface State {
   userAnswers: boolean[];
-}
+};
 
 const withUserAnswer = (Component) => {
-  class WithUserAnswer extends React.PureComponent<Props, State> {
+
+  type P = React.ComponentProps<typeof Component>;
+  type T = Props & Subtract<P, InjectedProps>;
+
+  class WithUserAnswer extends React.PureComponent<T, State> {
     constructor(props) {
       super(props);
       const {question: {answers}} = props;
@@ -30,7 +35,7 @@ const withUserAnswer = (Component) => {
       this._answersSubmitHandler = this._answersSubmitHandler.bind(this);
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: Props) {
       const {question: {answers}, question} = this.props;
       if (prevProps.question !== question) {
         this.setState({
@@ -39,7 +44,7 @@ const withUserAnswer = (Component) => {
       }
     }
 
-    _answersChangeHandler(index) {
+    private _answersChangeHandler(index: number) {
       this.setState((prevState) => {
         const newAnswers = [...prevState.userAnswers];
         newAnswers[index] = !newAnswers[index];
@@ -47,7 +52,7 @@ const withUserAnswer = (Component) => {
       });
     }
 
-    _answersSubmitHandler() {
+    private _answersSubmitHandler() {
       const {onAnswer} = this.props;
       const {userAnswers} = this.state;
       onAnswer(userAnswers);
@@ -62,11 +67,6 @@ const withUserAnswer = (Component) => {
       />;
     }
   }
-
-  WithUserAnswer.propTypes = {
-    onAnswer: PropTypes.func.isRequired,
-    question: PropTypes.object.isRequired
-  };
 
   return WithUserAnswer;
 };

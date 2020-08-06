@@ -9,8 +9,8 @@ const ActionType = {
 const initialState = {
   step: -1,
   mistakes: 0,
-  maxMistakes: 10,
-  gameTime: 12,
+  maxMistakes: 3,
+  gameTime: 120,
   currentTime: 0,
   timerId: -1,
 };

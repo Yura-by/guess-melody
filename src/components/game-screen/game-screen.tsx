@@ -1,13 +1,14 @@
 import * as React from 'react';
-// import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import Mistakes from '../mistakes/mistakes.jsx';
-import Timer from '../timer/timer.jsx';
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const.js';
 
-import {getMistakes, getTimerId} from '../../reducer/game/selectors.js';
-import {ActionCreator as GameActionCreator} from '../../reducer/game/game.js';
+import {AppRoute} from '../../const';
+
+import Mistakes from '../mistakes/mistakes';
+import Timer from '../timer/timer';
+
+import {getMistakes, getTimerId} from '../../reducer/game/selectors';
+import {ActionCreator as GameActionCreator} from '../../reducer/game/game';
 
 interface Props {
   type: string;
@@ -43,17 +44,6 @@ const GameScreen: React.FunctionComponent<Props> = (props) => {
     </section>
   );
 };
-
-// GameScreen.propTypes = {
-//   type: PropTypes.string.isRequired,
-//   children: PropTypes.oneOfType([
-//     PropTypes.array,
-//     PropTypes.object
-//   ]).isRequired,
-//   mistakes: PropTypes.number.isRequired,
-//   onHeaderClick: PropTypes.func.isRequired,
-//   timerId: PropTypes.number.isRequired
-// };
 
 const mapStateToProps = (state) => ({
   mistakes: getMistakes(state),

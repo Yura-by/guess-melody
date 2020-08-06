@@ -1,5 +1,4 @@
 import * as React from 'react';
-// import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const.js';
 
@@ -24,9 +23,5 @@ const GameOver: React.FunctionComponent<Props> = (props) => {
     </section>
   );
 };
-
-// GameOver.propTypes = {
-//   onResetGame: PropTypes.func.isRequired
-// };
 
 export default GameOver;
