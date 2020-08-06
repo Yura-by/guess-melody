@@ -32,6 +32,7 @@ import withUserAnswer from '../with-user-answer/with-user-answer.jsx';
 import withTransformProps from '../with-transform-props/with-transform-props.jsx';
 import withAuthData from '../with-auth-data/with-auth-data.jsx';
 
+
 const transformPlayerToAnswer = (props) => {
   const newProps = Object.assign({}, props, {
     renderAnswer: props.renderPlayer

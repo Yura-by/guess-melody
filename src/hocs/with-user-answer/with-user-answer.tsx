@@ -1,8 +1,23 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+// import PropTypes from 'prop-types';
+import {ArtistQuestion, GenreQuestion} from '../../types';
+
+interface InjectedProps {
+};
+
+type Question = ArtistQuestion | GenreQuestion;
+
+interface Props {
+  onAnswer: (answer: boolean[]) => void;
+  question: Question;
+};
+
+interface State {
+  userAnswers: boolean[];
+}
 
 const withUserAnswer = (Component) => {
-  class WithUserAnswer extends PureComponent {
+  class WithUserAnswer extends React.PureComponent<Props, State> {
     constructor(props) {
       super(props);
       const {question: {answers}} = props;

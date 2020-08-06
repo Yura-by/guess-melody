@@ -31,3 +31,5 @@ export interface ArtistQuestion {
   song: Song;
   answers: ArtistAnswer[]
 };
+
+export type RenderPlayer = <T>(question: T, index: number) => React.ReactElement;

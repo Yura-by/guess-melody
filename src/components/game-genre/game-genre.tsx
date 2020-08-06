@@ -1,14 +1,16 @@
 import * as React from 'react';
-import {GenreQuestion, GenreAnswer} from '../../types';
+import {GenreQuestion, GenreAnswer, RenderPlayer} from '../../types';
 // import PropTypes from 'prop-types';
 
 interface Props {
   question: GenreQuestion;
   onAnswer: (ansers: boolean[]) => void;
   userAnswers: boolean[];
-  renderAnswer: (answer: GenreAnswer, index: number) => React.ReactElement;
+  renderAnswer: RenderPlayer;
   onChange: (indes: number) => void;
 };
+
+// renderAnswer: (answer: GenreAnswer, index: number) => React.ReactElement;
 
 export default class GameGenre extends React.PureComponent<Props, null> {
 
@@ -29,7 +31,7 @@ export default class GameGenre extends React.PureComponent<Props, null> {
             const {id} = answer;
             return (
               <div className="track" key={id}>
-                {renderAnswer(answer, index)}
+                {renderAnswer<GenreAnswer>(answer, index)}
                 <div className="game__answer">
                   <input
                     className="game__input visually-hidden"

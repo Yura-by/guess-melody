@@ -1,12 +1,14 @@
 import * as React from 'react';
-import {ArtistQuestion, ArtistAnswer, Song} from '../../types';
+import {ArtistQuestion, ArtistAnswer, Song, RenderPlayer} from '../../types';
 // import PropTypes from 'prop-types';
 
 interface Props {
   question: ArtistQuestion;
   onAnswer: (answer: ArtistAnswer) => void;
-  renderQuestion: (song: Song, index: number) => React.ReactElement;
+  renderQuestion: RenderPlayer;
 };
+
+// renderQuestion: (song: Song, index: number) => React.ReactElement;
 
 const GameArtist: React.FunctionComponent<Props> = (props) => {
   const {question, onAnswer, renderQuestion} = props;
@@ -17,7 +19,7 @@ const GameArtist: React.FunctionComponent<Props> = (props) => {
       <h2 className="game__title">Кто исполняет эту песню?</h2>
       <div className="game__track">
         <div className="track">
-          {renderQuestion(song, 0)}
+          {renderQuestion<Song>(song, 0)}
         </div>
       </div>
 

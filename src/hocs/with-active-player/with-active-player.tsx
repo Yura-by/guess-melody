@@ -1,12 +1,32 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+// import PropTypes from 'prop-types';
+import {Subtract} from 'utility-types';
+
 import AudioPlayer from '../../components/audio-player/audio-player.jsx';
 import withPlayer from '../../hocs/with-player/with-player.jsx';
+import {ArtistQuestion, GenreQuestion, RenderPlayer, GenreAnswer, Song} from '../../types';
+
+interface State {
+  activePlayer: number;
+};
+
+interface Props {
+  question: ArtistQuestion | GenreQuestion;
+};
+
+interface InjectingProps {
+  renderPlayer: RenderPlayer;
+};
 
 const AudioPlayerWrapped = withPlayer(AudioPlayer);
 
 const withActivePlayer = (Component) => {
-  class WithActivePlayer extends PureComponent {
+
+  type P = React.ComponentProps<typeof Component>;
+
+  type T = Props & Subtract<P, InjectingProps>;
+
+  class WithActivePlayer extends React.PureComponent<T, State> {
     constructor(props) {
       super(props);
 
@@ -17,7 +37,7 @@ const withActivePlayer = (Component) => {
       this._onPlayButtonClick = this._onPlayButtonClick.bind(this);
     }
 
-    _onPlayButtonClick(index) {
+    _onPlayButtonClick(index: number) {
       this.setState((prevProps) => {
         return {
           activePlayer: prevProps.activePlayer === index ? -1 : index
@@ -35,7 +55,7 @@ const withActivePlayer = (Component) => {
       const {activePlayer} = this.state;
       return <Component
         {...this.props}
-        renderPlayer={(it, index) => {
+        renderPlayer={(it: GenreAnswer | Song, index: number): React.ReactElement => {
           return (
             <AudioPlayerWrapped
               src={it.src}
@@ -49,7 +69,7 @@ const withActivePlayer = (Component) => {
     }
   }
 
-  WithActivePlayer.propTypes = {question: PropTypes.object.isRequired};
+  // WithActivePlayer.propTypes = {question: PropTypes.object.isRequired};
 
   return WithActivePlayer;
 };
