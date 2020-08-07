@@ -4,9 +4,10 @@ import {AppRoute} from '../../const';
 
 interface Props {
   onUserClick: () => void;
-};
+}
 
-const FailTime: React.FunctionComponent<Props> = ({onUserClick}) => {
+const FailTime: React.FunctionComponent<Props> = (props: Props) => {
+  const {onUserClick} = props;
   return (
     <section className="result">
       <div className="result__logo"><img src="img/melody-logo.png" alt="Угадай мелодию" width="186" height="83" /></div>

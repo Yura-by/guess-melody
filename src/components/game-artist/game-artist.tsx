@@ -5,9 +5,9 @@ interface Props {
   question: ArtistQuestion;
   onAnswer: (answer: ArtistAnswer) => void;
   renderQuestion: RenderPlayer;
-};
+}
 
-const GameArtist: React.FunctionComponent<Props> = (props) => {
+const GameArtist: React.FunctionComponent<Props> = (props: Props) => {
   const {question, onAnswer, renderQuestion} = props;
   const {answers, song} = question;
 

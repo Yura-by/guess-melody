@@ -43,10 +43,10 @@ interface Props {
   onUserResetGame: () => void;
   timerId: number;
   isRequireAuthorization: boolean;
-  onUserLogin: (state: {email: string, password: string}) => void;
+  onUserLogin: (state: {email: string; password: string}) => void;
   isBadLoginData: boolean;
   currentTime: number;
-};
+}
 
 const transformPlayerToAnswer = (props) => {
   const newProps = Object.assign({}, props, {
@@ -80,7 +80,7 @@ const questionType = {
 
 const withScreenSwitch = (Component) => {
 
-  class WithScreenSwitch extends React.PureComponent<Props, null>{
+  class WithScreenSwitch extends React.PureComponent<Props, null> {
 
     constructor(props) {
       super(props);
@@ -239,7 +239,7 @@ const mapDispatchToProps = (dispatch) => ({
       history.push(AppRoute.TIME);
     });
 
-    let timerID = setInterval(() => {
+    const timerID = setInterval(() => {
       timer.tick();
       dispatch(GameActionCreator.reduceTime(timer.getLastTime()));
     }, 1000);

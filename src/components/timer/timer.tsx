@@ -5,9 +5,9 @@ import {getCurrentTime} from '../../reducer/game/selectors.js';
 
 interface Props {
   currentTime: number;
-};
+}
 
-const correctTime = (value) => {
+const correctTime = (value: number) => {
   if (value / 10 >= 1) {
     return value;
   }
@@ -15,7 +15,8 @@ const correctTime = (value) => {
   return `0${value}`;
 };
 
-const Timer: React.FunctionComponent<Props> = ({currentTime}) => {
+const Timer: React.FunctionComponent<Props> = (props: Props) => {
+  const {currentTime} = props;
   const minutes = Math.floor(currentTime / 60);
   const seconds = currentTime % 60;
   return (

@@ -4,9 +4,9 @@ import {AppRoute} from '../../const.js';
 
 interface Props {
   onResetGame: () => void;
-};
+}
 
-const GameOver: React.FunctionComponent<Props> = (props) => {
+const GameOver: React.FunctionComponent<Props> = (props: Props) => {
   const {onResetGame} = props;
   return (
     <section className="result">

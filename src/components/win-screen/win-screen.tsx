@@ -7,9 +7,9 @@ interface Props {
   currentTime: number;
   mistakes: number;
   onResetGame: () => void;
-};
+}
 
-const WinScreen: React.FunctionComponent<Props> = (props) => {
+const WinScreen: React.FunctionComponent<Props> = (props: Props) => {
   const {
     gameTime,
     currentTime,

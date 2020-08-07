@@ -7,9 +7,9 @@ interface Props {
   formSubmitHandler: (evt: React.FormEvent<HTMLFormElement>) => void;
   loginChangeHandler: (evt: React.ChangeEvent<HTMLInputElement>) => void;
   passwordChangeHandler: (evt: React.ChangeEvent<HTMLInputElement>) => void;
-};
+}
 
-const AuthorizationScreen: React.FunctionComponent<Props> = (props) => {
+const AuthorizationScreen: React.FunctionComponent<Props> = (props: Props) => {
 
   const {isBadLoginData, email, password, formSubmitHandler, loginChangeHandler, passwordChangeHandler} = props;
   return (

@@ -1,21 +1,21 @@
 import * as React from 'react';
 import {Subtract} from 'utility-types';
-import {ArtistQuestion, GenreQuestion, Question} from '../../types';
+import {Question} from '../../types';
 
 interface InjectedProps {
   userAnswers: boolean[];
   onChange: (index: number) => void;
   onAnswer: () => void;
-};
+}
 
 interface Props {
   onAnswer: (answer: boolean[]) => void;
   question: Question;
-};
+}
 
 interface State {
   userAnswers: boolean[];
-};
+}
 
 const withUserAnswer = (Component) => {
 

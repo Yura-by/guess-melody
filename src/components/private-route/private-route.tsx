@@ -12,7 +12,8 @@ interface Props {
   isRequireAuthorization: boolean;
 }
 
-const PrivateRoute: React.FunctionComponent<Props> = ({path, exact, render, isRequireAuthorization}) => {
+const PrivateRoute: React.FunctionComponent<Props> = (props: Props) => {
+  const {path, exact, render, isRequireAuthorization} = props;
   return (
     <Route
       path={path}

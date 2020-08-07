@@ -15,9 +15,10 @@ interface Props {
   mistakes: number;
   onHeaderClick: (id: number) => void;
   timerId: number;
-};
+  children: React.ReactNode;
+}
 
-const GameScreen: React.FunctionComponent<Props> = (props) => {
+const GameScreen: React.FunctionComponent<Props> = (props: Props) => {
   const {type, children, mistakes, onHeaderClick, timerId} = props;
   return (
     <section className={`game game--${type}`}>

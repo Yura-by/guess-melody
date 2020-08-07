@@ -5,19 +5,19 @@ interface Props {
   isPlaying: boolean;
   src: string;
   onPlayButtonClick: () => void;
-};
+}
 
 interface State {
   progress: number;
   isLoading: boolean;
   isPlaying: boolean;
-};
+}
 
 interface InjectedProps {
   isLoading: boolean;
   isPlaying: boolean;
   onPlayButtonClick: () => void;
-};
+}
 
 const withPlayer = (NeededComponent) => {
 

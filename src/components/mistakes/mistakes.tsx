@@ -2,9 +2,9 @@ import * as React from 'react';
 
 interface Props {
   mistakes: number;
-};
+}
 
-const Mistakes: React.FunctionComponent<Props> = (props) => {
+const Mistakes: React.FunctionComponent<Props> = (props: Props) => {
   const {mistakes} = props;
   const mistakesFullArray = new Array(mistakes).fill(``);
   return (

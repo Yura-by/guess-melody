@@ -4,7 +4,7 @@ import {Omit} from 'utility-types';
 enum Render {
   ANSWER = `renderAnswer`,
   QUESTION = `renderQuestion`
-};
+}
 
 const withTransformProps = (transformFunc: (props: object) => object) => (Component) => {
 

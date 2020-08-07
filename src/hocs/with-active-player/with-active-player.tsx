@@ -7,15 +7,15 @@ import {ArtistQuestion, GenreQuestion, RenderPlayer, GenreAnswer, Song} from '..
 
 interface State {
   activePlayer: number;
-};
+}
 
 interface Props {
   question: ArtistQuestion | GenreQuestion;
-};
+}
 
 interface InjectingProps {
   renderPlayer: RenderPlayer;
-};
+}
 
 const AudioPlayerWrapped = withPlayer(AudioPlayer);
 
@@ -36,7 +36,7 @@ const withActivePlayer = (Component) => {
       this._onPlayButtonClick = this._onPlayButtonClick.bind(this);
     }
 
-    _onPlayButtonClick(index: number) {
+    private _onPlayButtonClick(index: number) {
       this.setState((prevProps) => {
         return {
           activePlayer: prevProps.activePlayer === index ? -1 : index

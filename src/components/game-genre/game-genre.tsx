@@ -7,7 +7,7 @@ interface Props {
   userAnswers: boolean[];
   renderAnswer: RenderPlayer;
   onChange: (indes: number) => void;
-};
+}
 
 export default class GameGenre extends React.PureComponent<Props, null> {
 

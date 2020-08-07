@@ -4,11 +4,11 @@ import {Subtract} from 'utility-types';
 interface State {
   email: string;
   password: string;
-};
+}
 
 interface Props {
   onAuthFormSubmit: (state: State) => void;
-};
+}
 
 type FormSubmit = (evt: React.FormEvent<HTMLFormElement>) => void;
 type LoginChange = (evt: React.ChangeEvent<HTMLInputElement>) => void;
@@ -20,7 +20,7 @@ interface InjectedProps {
   passwordChangeHandler: PasswordChange;
   email: string;
   password: string;
-};
+}
 
 const withAuthData = (Component) => {
 

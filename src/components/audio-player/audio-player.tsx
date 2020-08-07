@@ -4,9 +4,10 @@ interface Props {
   isPlaying: boolean;
   isLoading: boolean;
   onPlayButtonClick: () => void;
-};
+  children: React.ReactNode;
+}
 
-const AudioPlayer: React.FunctionComponent<Props> = (props) => {
+const AudioPlayer: React.FunctionComponent<Props> = (props: Props) => {
   const {onPlayButtonClick, isLoading, isPlaying, children} = props;
   return (
     <React.Fragment>

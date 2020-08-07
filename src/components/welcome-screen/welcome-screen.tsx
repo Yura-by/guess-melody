@@ -6,7 +6,7 @@ interface Props {
   onStartButtonClick: () => void;
 }
 
-const WelcomeScreen: React.FunctionComponent<Props> = (props) => {
+const WelcomeScreen: React.FunctionComponent<Props> = (props: Props) => {
   const {time, errorCount, onStartButtonClick} = props;
   return (
     <section className="welcome">
