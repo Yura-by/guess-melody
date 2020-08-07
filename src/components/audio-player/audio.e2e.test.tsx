@@ -1,15 +1,15 @@
-import React from 'react';
-import Enzyme, {shallow} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import AudioPlayer from './audio-player.jsx';
+import * as React from 'react';
+import {configure, shallow} from 'enzyme';
+import * as Adapter from 'enzyme-adapter-react-16';
+import AudioPlayer from './audio-player';
+import {noon} from '../../utils';
 
-Enzyme.configure({adapter: new Adapter()});
+configure({adapter: new Adapter()});
 
 it(`AudioPlayer toggle state with click button`, () => {
   const onButtonClick = jest.fn();
 
   const tree = shallow(<AudioPlayer
-    src="https://web.archive.org/web/20060818144601/http://www.navyband.navy.mil/anthems/ANTHEMS/Belarus.mp3"
     isPlaying={false}
     isLoading={false}
     onPlayButtonClick={onButtonClick}
@@ -17,8 +17,9 @@ it(`AudioPlayer toggle state with click button`, () => {
     <div></div>);
   </AudioPlayer>);
 
+
   const buttonElement = tree.find(`.track__button`);
-  buttonElement.simulate(`click`, {preventDefault() {}});
+  buttonElement.simulate(`click`, {preventDefault: noon});
   expect(onButtonClick).toHaveBeenCalledTimes(1);
 
   // global.window.HTMLMediaElement.prototype.pause = () => {};

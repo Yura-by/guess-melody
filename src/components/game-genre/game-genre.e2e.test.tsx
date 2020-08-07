@@ -1,12 +1,15 @@
-import React from 'react';
-import Enzyme, {shallow} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import * as React from 'react';
+import {configure, shallow} from 'enzyme';
+import * as Adapter from 'enzyme-adapter-react-16';
 import GameGenre from './game-genre';
 
-Enzyme.configure({adapter: new Adapter()});
+import {GameType, GenreQuestion} from '../../types';
+import {noop} from '../../utils';
 
-const mock = {
-  type: `genre`,
+configure({adapter: new Adapter()});
+
+const mock: GenreQuestion = {
+  type: GameType.GENRE,
   genre: `rock`,
   answers: [
     {
@@ -43,7 +46,7 @@ it(`When users answer question is not sent`, () => {
     onAnswer={onSubmitForm}
     userAnswers={[]}
     renderAnswer={renderPlayer}
-    onChange={() => {}}
+    onChange={noop}
   />);
 
   const inputElement = tree.find(`.game__tracks`);
@@ -65,7 +68,7 @@ it(`RenderAnswer calls on rendering`, () => {
     onAnswer={onSubmitForm}
     userAnswers={[]}
     renderAnswer={renderPlayer}
-    onChange={() => {}}
+    onChange={noop}
   />);
 
   expect(renderPlayer).toHaveBeenCalledTimes(4);
@@ -87,7 +90,7 @@ it(`When user answers to pass answers`, () => {
   />);
 
   const form = tree.find(`form`);
-  form.simulate(`submit`, {preventDefault() {}});
+  form.simulate(`submit`, {preventDefault: noop});
   expect(onSubmitForm).toHaveBeenNthCalledWith(1, [false, true, true, false]);
 });
 

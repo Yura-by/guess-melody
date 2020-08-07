@@ -1,12 +1,14 @@
-import React from 'react';
-import Adapter from 'enzyme-adapter-react-16';
-import Enzyme, {shallow} from 'enzyme';
+import * as React from 'react';
+import * as Adapter from 'enzyme-adapter-react-16';
+import {configure, shallow} from 'enzyme';
 import GameArtist from './game-artist';
+import {noop} from '../../utils';
+import {GameType} from '../../types';
 
-Enzyme.configure({adapter: new Adapter()});
+configure({adapter: new Adapter()});
 
 const mock = {
-  type: `artist`,
+  type: GameType.ARTIST,
   song: {
     artist: `Mikle Jackson`,
     src: `path`,
@@ -31,7 +33,7 @@ const mock = {
 };
 
 const mockEvent = {
-  preventDefault() {}
+  preventDefault: noop
 };
 
 it(`On change gets called with the right arguments`, () => {
